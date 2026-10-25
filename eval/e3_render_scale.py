@@ -113,6 +113,26 @@ async def run(args):
             n += 1
 
 
+def remeasure(args):
+    """Re-read the saved renders (no API call) after a change to the hand measurement."""
+    s = config.load()
+    store = hands.HandStore(s.assets / "hands", s.var / "hands",
+                            lambda: metrology.MediaPipeHands(str(s.assets / "models" / "hand_landmarker.task")))
+    log = RESULTS / "e3_calls.jsonl"
+    rows = [json.loads(x) for x in log.read_text(encoding="utf-8").splitlines()]
+    out = []
+    for r in rows:
+        raw = Path(args.raw) / f"{r['hand']}_{r['ring']}.png"
+        if "error" in r or not raw.exists():
+            out.append(r)
+            continue
+        hand = store.get(r["hand"])
+        out.append(r | measure_call(hand, store.crop(r["hand"]), raw.read_bytes()))
+    with log.open("w", encoding="utf-8") as f:
+        for r in out:
+            f.write(json.dumps(r) + "\n")
+
+
 def fit(args):
     """Two models of the rendered stone width (stone / finger, across the finger):
 
@@ -175,9 +195,12 @@ def main():
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--raw", default=str(ROOT / "var" / "e3_raw"))
     ap.add_argument("--fit-only", action="store_true")
+    ap.add_argument("--remeasure", action="store_true", help="re-read every saved render with the current metrology")
     ap.add_argument("--no-write-calibration", action="store_true")
     args = ap.parse_args()
-    if not args.fit_only:
+    if args.remeasure:
+        remeasure(args)
+    elif not args.fit_only:
         asyncio.run(run(args))
     fit(args)
 

@@ -1,21 +1,21 @@
 {
- "residual_p90_pct": 2.32,
+ "residual_p90_pct": 2.33,
  "source": "eval/e3_render_scale.py",
  "c_by_shape": {
-  "emerald": 1.1449,
+  "emerald": 1.1444,
   "oval": 1.0728,
-  "pear": 1.0496,
+  "pear": 1.0495,
   "round": 1.0615
  },
- "band_fit_prior": 1.113,
+ "band_fit_prior": 1.148,
  "band_fit_by_hand": {
-  "hand-1": 1.132,
-  "hand-2": 1.101,
-  "hand-3": 1.146,
-  "hand-4": 1.14,
-  "hand-5": 1.106,
-  "hand-6": 1.124,
-  "hand-7": 1.078
+  "hand-1": 1.16,
+  "hand-2": 1.139,
+  "hand-3": 1.219,
+  "hand-4": 1.155,
+  "hand-5": 1.142,
+  "hand-6": 1.133,
+  "hand-7": 1.158
  },
  "renders": 133
 }
