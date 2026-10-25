@@ -26,6 +26,10 @@ class Offer:
     price_per_mm2: float
     spread_pct: float
     weight_check: bool
+    depth_mm: float
+    colour: str | None
+    clarity: str | None
+    origin: str | None
 
     def as_dict(self):
         return asdict(self)
@@ -39,7 +43,8 @@ def offers(stones: list[dict], finger_mm: float) -> list[Offer]:
         out.append(Offer(s["sku"], f"{s['carat']:.2f} ct {s['shape']}", s["shape"], s["carat"], g.width, g.length,
                          round(g.area_mm2, 1), round(100 * g.coverage(finger_mm)), s["price"], s["currency"],
                          round(s["price"] / g.area_mm2, 1), round(g.spread_pct, 1),
-                         bool(est and abs(s["carat"] / est - 1) <= weights.TOLERANCE)))
+                         bool(est and abs(s["carat"] / est - 1) <= weights.TOLERANCE), g.depth, s.get("colour"),
+                         s.get("clarity"), s.get("origin")))
     return out
 
 

@@ -60,7 +60,7 @@ def health():
 @app.get("/api/samples")
 def samples():
     s = svc().samples()
-    s["hands"] = [hand_public(svc().hands.get(h["id"])) for h in s["hands"]]
+    s["hands"] = [hand_public(svc().hands.get(h["id"])) | {"recorded": h["recorded"]} for h in s["hands"]]
     return s
 
 

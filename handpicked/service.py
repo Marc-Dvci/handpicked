@@ -165,18 +165,29 @@ class Handpicked:
         c = self.c_shape(shape)
         bf, bf_source = self.band_fit(hand_id)
         attempts = []
-        for attempt in range(2):
+        for _attempt in range(2):
             choice = self.library.choose(shape, metal, target, c * bf)
-            res, key = await self._render(hand, choice, metal, band, session)
+            try:
+                res, key = await self._render(hand, choice, metal, band, session)
+            except youcam.YouCamError:
+                if not attempts:
+                    raise
+                break                       # the correction could not be rendered: keep the first render, labelled
             a = self._audit(hand, res.image, target, choice, c)
             attempts.append({"render": choice.name, "anchor_scale": round(choice.anchor_scale, 4), "units": res.units,
-                             "error_pct": a["error_pct"], "band_fit": a["band_fit"]})
+                             "error_pct": a["error_pct"], "band_fit": a["band_fit"], "key": key})
+            kept = (res, key, a, choice)
             measured = a["band_fit"] is not None and a["expected_ratio"] is not None
-            if measured and bf_source != "calibrated":
-                bf, bf_source = a["band_fit"] / choice.anchor_scale, "measured on this hand"
-                self._remember_band_fit(hand_id, bf)
-            if a["passed"] or res.cached or not measured or attempt == 1:
+            if not measured:
                 break
+            render_fit = a["band_fit"] / choice.anchor_scale
+            if bf_source != "calibrated":
+                bf, bf_source = render_fit, "measured on this hand"
+                self._remember_band_fit(hand_id, bf)
+            if a["passed"]:
+                break
+            bf = render_fit                 # re-render once with the band fit this render showed
+        res, key, a, choice = kept
         return {"key": key, "image": f"/api/tryon/{key}.jpg", "view": f"/api/tryon/{key}/view.jpg?hand={hand_id}",
                 "task_id": res.task_id, "seconds": res.seconds, "units": sum(x["units"] for x in attempts),
                 "cached": res.cached, "attempts": attempts,
@@ -245,8 +256,17 @@ class Handpicked:
                 "tokens_today": self.budget.used(), "token_cap": self.s.day_tokens,
                 "calibration": self.s.calibration, "library": sum(len(v) for v in self.library.items.values())}
 
+    def recorded(self) -> list[dict]:
+        """Try-ons shipped in assets/tryon (tools/record_samples.py): what replay mode can show."""
+        p = self.s.assets / "tryon" / "index.json"
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else []
+
     def samples(self) -> dict:
-        return {"hands": self.hands.samples(), "shortlist": SAMPLE_SHORTLIST, "source": SAMPLE_SOURCE}
+        rec = self.recorded()
+        hands_ = [h | {"recorded": any(r["hand"] == h["id"] for r in rec)} for h in self.hands.samples()]
+        return {"hands": hands_, "shortlist": SAMPLE_SHORTLIST, "source": SAMPLE_SOURCE,
+                "recorded": [{k: r[k] for k in ("hand", "shape", "width_mm", "metal", "band", "key", "error_pct")}
+                             for r in rec]}
 
 
 def outline_mm(shape: str, length: float, width: float, n: int = 96) -> list:

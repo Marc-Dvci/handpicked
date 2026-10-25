@@ -25,7 +25,7 @@ from . import fit, metrology
 
 MAX_SIDE = 4032          # the Ring VTO accepts up to 4096 px on the long side
 CROP_MARGIN = 0.28       # around the landmarks' bounding box, as a fraction of its larger side
-VIEW_W, VIEW_H = 4.6, 5.6  # view size in finger widths
+VIEW_W, VIEW_H = 3.4, 4.2  # view size in finger widths
 
 
 @dataclass
