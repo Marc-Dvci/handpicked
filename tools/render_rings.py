@@ -3,10 +3,11 @@
     blender -b -P tools/render_rings.py -- --out assets/rings --hdri <studio.hdr> [--shapes round,oval] [--quick]
 
 Each render is a three-quarter view of a solitaire on an orthographic camera, so a length in the image is the
-same fraction of the band's outer diameter as it is on the real ring. The Ring VTO fits the ring's outer
-silhouette to the finger's silhouette (measured in spike/README.md), so the band's outer diameter stands for the
-finger width, and the stone's width across the finger is `ratio` times that diameter. On the hand photo the
-stone then lands at `ratio` times the finger width.
+same fraction of the band's outer diameter as it is on the real ring. The stone-to-band ratio in the image is
+`ratio` (stone width / band outer diameter). The Ring VTO maps the anchor points (the band's inner edge) to the
+finger, so the band is drawn about 1.15 times the finger width and the stone follows it: on the hand photo the
+stone lands at c_shape x `ratio` x band fit times the finger width, with c_shape and the band fit measured by
+eval/e3_render_scale.py from renders made with `--marker`.
 
 For every image the script writes `<name>.json` with the projected inner-edge anchor points (the two points the
 API calls `ring_anchor_point`), the stone's and the head's pixel extents, and the geometry in millimetres.

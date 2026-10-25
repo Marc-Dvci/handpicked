@@ -1,54 +1,73 @@
 {
- "calls": 140,
- "measured": 140,
+ "calls": 204,
+ "measured": 204,
  "errors": 0,
  "hands": 7,
- "rings": 20,
+ "rings": 36,
  "shapes": [
+  "cushion",
   "emerald",
+  "marquise",
   "oval",
   "pear",
+  "princess",
+  "radiant",
   "round"
  ],
  "seconds_median": 4.62,
  "open_loop": {
   "k_by_shape": {
+   "cushion": 1.2574,
    "emerald": 1.2965,
+   "marquise": 1.2345,
    "oval": 1.228,
    "pear": 1.2131,
+   "princess": 1.302,
+   "radiant": 1.2919,
    "round": 1.2237
   },
-  "residual_median_pct": 1.69,
-  "residual_p90_pct": 5.03,
+  "residual_median_pct": 1.96,
+  "residual_p90_pct": 5.86,
   "residual_max_pct": 10.94
  },
  "per_render": {
   "c_by_shape": {
+   "cushion": 1.0779,
    "emerald": 1.1444,
+   "marquise": 1.0652,
    "oval": 1.0728,
    "pear": 1.0495,
+   "princess": 1.1114,
+   "radiant": 1.1185,
    "round": 1.0615
   },
-  "renders": 133,
+  "renders": 197,
   "excluded_band_hidden": 7,
-  "residual_median_pct": 0.92,
+  "residual_median_pct": 0.95,
   "residual_p90_pct": 2.33,
   "residual_max_pct": 4.56,
-  "within_3pct": 123,
-  "within_5pct": 133
+  "within_3pct": 187,
+  "within_5pct": 197
+ },
+ "leave_one_hand_out": {
+  "renders": 197,
+  "residual_median_pct": 1.11,
+  "residual_p90_pct": 3.25,
+  "residual_max_pct": 5.76,
+  "within_5pct": 193
  },
  "band_fit": {
-  "median": 1.148,
+  "median": 1.152,
   "by_hand": {
-   "hand-1": 1.16,
+   "hand-1": 1.164,
    "hand-2": 1.139,
-   "hand-3": 1.219,
+   "hand-3": 1.221,
    "hand-4": 1.155,
    "hand-5": 1.142,
    "hand-6": 1.133,
-   "hand-7": 1.158
+   "hand-7": 1.162
   },
-  "within_hand_p90_pct": 2.87
+  "within_hand_p90_pct": 2.84
  },
  "single_photo_baseline_error_pct": {
   "0.24": 66.7,

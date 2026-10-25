@@ -152,6 +152,15 @@ def fit(args):
     by_hand = {h: round(statistics.median([r["band_fit"] for r in banded if r["hand"] == h]), 4)
                for h in sorted({r["hand"] for r in banded})}
     within = [abs(r["band_fit"] / by_hand[r["hand"]] - 1) for r in banded]
+    # Leave one hand out: c_shape fitted on the other hands, scored on this one, so the residual is measured on a
+    # hand the fit has not seen. The band fit stays the one read in each render, as in the service.
+    loho = []
+    for h in sorted({r["hand"] for r in banded}):
+        train = [r for r in banded if r["hand"] != h]
+        for r in (r for r in banded if r["hand"] == h):
+            same = [t["observed_ratio"] / (t["product_ratio"] * t["band_fit"]) for t in train if t["shape"] == r["shape"]]
+            if same:
+                loho.append(abs(r["observed_ratio"] / (statistics.median(same) * r["product_ratio"] * r["band_fit"]) - 1))
     targets = sorted({r["product_ratio"] for r in ok})
     mid = statistics.median(targets)
 
@@ -170,6 +179,8 @@ def fit(args):
                        "residual_median_pct": pct(res, 50), "residual_p90_pct": pct(res, 90),
                        "residual_max_pct": round(100 * max(res), 2),
                        "within_3pct": sum(x <= 0.03 for x in res), "within_5pct": sum(x <= 0.05 for x in res)},
+        "leave_one_hand_out": {"renders": len(loho), "residual_median_pct": pct(loho, 50), "residual_p90_pct": pct(loho, 90),
+                               "residual_max_pct": round(100 * max(loho), 2), "within_5pct": sum(x <= 0.05 for x in loho)},
         "band_fit": {"median": round(statistics.median([r["band_fit"] for r in banded]), 4), "by_hand": by_hand,
                      "within_hand_p90_pct": pct(within, 90)},
         "single_photo_baseline_error_pct": {f"{t:.2f}": round(100 * abs(mid / t - 1), 1) for t in targets},

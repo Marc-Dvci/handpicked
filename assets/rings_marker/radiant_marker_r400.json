@@ -1,0 +1,64 @@
+{
+ "name": "radiant_marker_r400",
+ "shape": "radiant",
+ "metal": "platinum",
+ "ratio": 0.4,
+ "image": "radiant_marker_r400.jpg",
+ "marker": true,
+ "resolution": 768,
+ "inner_diameter_mm": 17.0,
+ "outer_diameter_mm": 20.4,
+ "band_width_mm": 2.0,
+ "band_thickness_mm": 1.7,
+ "fit_width": "outer_diameter_mm",
+ "length_to_width": 1.25,
+ "stone_width_mm": 8.16,
+ "stone_length_mm": 10.2,
+ "depth_mm": 5.0592,
+ "head_width_mm": 8.16,
+ "anchor_points": [
+  [
+   122,
+   431
+  ],
+  [
+   646,
+   431
+  ]
+ ],
+ "inner_edge_px": [
+  [
+   121.7,
+   431.6
+  ],
+  [
+   646.3,
+   431.6
+  ]
+ ],
+ "outer_edge_px": [
+  [
+   69.25,
+   431.6
+  ],
+  [
+   698.75,
+   431.6
+  ]
+ ],
+ "stone_px": [
+  [
+   258.1,
+   282.87
+  ],
+  [
+   509.9,
+   282.87
+  ]
+ ],
+ "px_per_mm": 30.85853,
+ "camera": {
+  "type": "orthographic",
+  "elevation_deg": 70.0
+ }
+}
