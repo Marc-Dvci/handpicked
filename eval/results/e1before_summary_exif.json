@@ -1,0 +1,39 @@
+{
+  "focal": "exif",
+  "n_cases": 40,
+  "n_measured": 40,
+  "n_refused": 0,
+  "refused_by_code": {},
+  "width_corrected": {
+    "n": 40,
+    "mean_error_mm": 0.605,
+    "median_abs_error_mm": 0.429,
+    "p90_abs_error_mm": 1.26,
+    "p95_abs_error_mm": 1.778,
+    "max_abs_error_mm": 3.211
+  },
+  "width_raw": {
+    "n": 40,
+    "mean_error_mm": 0.984,
+    "median_abs_error_mm": 0.788,
+    "p90_abs_error_mm": 1.725,
+    "p95_abs_error_mm": 2.181,
+    "max_abs_error_mm": 4.031
+  },
+  "knuckle": {
+    "n": 40,
+    "mean_error_mm": 1.113,
+    "median_abs_error_mm": 0.885,
+    "p90_abs_error_mm": 2.757,
+    "p95_abs_error_mm": 2.889,
+    "max_abs_error_mm": 4.543
+  },
+  "camera_distance": {
+    "n": 40,
+    "mean_error_mm": 0.704,
+    "median_abs_error_mm": 0.677,
+    "p90_abs_error_mm": 1.056,
+    "p95_abs_error_mm": 1.101,
+    "max_abs_error_mm": 1.61
+  }
+}
