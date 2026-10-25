@@ -12,8 +12,8 @@ RUN npm run build
 
 FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PORT=8080 HANDPICKED_VAR=/app/var
-# mediapipe pulls in the full OpenCV build, which links against libGL and glib
-RUN apt-get update && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 \
+# mediapipe pulls in the full OpenCV build (libGL, glib) and can load EGL/GLES at import
+RUN apt-get update && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libegl1 libgles2 \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY requirements.txt ./

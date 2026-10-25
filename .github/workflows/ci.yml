@@ -40,3 +40,21 @@ jobs:
         with:
           name: browser-tests
           path: web/test-results
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image
+        run: docker build -t handpicked .
+      - name: Run it in replay mode and call the API
+        run: |
+          docker run -d --name hp -p 8080:8080 handpicked
+          for i in $(seq 1 30); do curl -sf localhost:8080/api/health && break; sleep 2; done
+          curl -sf localhost:8080/api/samples | python3 -c "import json,sys; d=json.load(sys.stdin); assert len(d['hands']) == 7 and len(d['recorded']) == 18; print('samples ok')"
+          curl -sf localhost:8080/ | grep -q "<title>Handpicked</title>" && echo "web app ok"
+          curl -sf -X POST localhost:8080/api/tryon -H 'content-type: application/json' \
+            -d '{"hand_id":"hand-1","shape":"oval","width_mm":5.62,"metal":"platinum"}' | python3 -c "import json,sys; t=json.load(sys.stdin); assert t['cached'] and t['audit']['passed']; print('replayed try-on ok')"
+      - if: failure()
+        run: docker logs hp || true
