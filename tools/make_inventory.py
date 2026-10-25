@@ -4,7 +4,7 @@ Each stone is a natural diamond with measurements drawn around Perfect Corp's si
 (face-up area from 8% below to 8% above the typical stone, so some stones spread and some hide weight in depth),
 priced at PriceScope's October 2026 page-table average price per carat for its colour, clarity and weight band.
 
-    python tools/make_inventory.py --prices <prices.csv> --out assets/inventory.json
+    python tools/make_inventory.py --prices eval/prices/pricescope_cells_2026-10.csv --out assets/inventory.json
 """
 from __future__ import annotations
 
@@ -31,7 +31,10 @@ DEPTH_PCT = {"round": 61.5, "oval": 61.0, "pear": 61.0, "princess": 70.0, "radia
 def cell_prices(path: Path) -> dict:
     out = {}
     for r in csv.DictReader(path.open(encoding="utf-8")):
-        if r["source"] != "PS_NAT" or not r["filter_note"].startswith("CELL"):
+        if r["source"] != "PS_NAT":
+            continue
+        if "colour" in r:          # the extract shipped in eval/prices (tools/extract_prices.py)
+            out[(r["shape"], float(r["carat_min"]), float(r["carat_max"]), r["colour"], r["clarity"])] = float(r["price_per_carat"])
             continue
         m = re.match(r"CELL colour (\w) clarity (\w+);", r["filter_note"])
         if m:

@@ -1,0 +1,46 @@
+{
+ "description": "144 shortlists of three natural stones weighed against a round at 0.70, 1.00, 1.50 or 2.00 ct: the round, a round just under the weight, and an oval, pear, radiant or princess just under it, in nine colour and clarity grades. Typical dimensions from Perfect Corp's diamond size chart; prices are PriceScope cell averages, October 2026.",
+ "shortlists": 144,
+ "shortlists_with_saving": 36,
+ "median_saving_usd": 3345,
+ "median_saving_pct": 46.9,
+ "max_saving_usd": 15410,
+ "by_fancy": {
+  "oval": 36,
+  "pear": 0,
+  "radiant": 0,
+  "princess": 0
+ },
+ "saving_with_round": 0,
+ "by_threshold": {
+  "0.70": {
+   "shortlists": 36,
+   "with_saving": 9,
+   "median_saving_usd": 860
+  },
+  "1.00": {
+   "shortlists": 36,
+   "with_saving": 9,
+   "median_saving_usd": 1720
+  },
+  "1.50": {
+   "shortlists": 36,
+   "with_saving": 9,
+   "median_saving_usd": 5730
+  },
+  "2.00": {
+   "shortlists": 36,
+   "with_saving": 9,
+   "median_saving_usd": 12990
+  }
+ },
+ "look_alike_pairs": 144,
+ "look_alike_median_across_mm": 0.16,
+ "look_alike_median_price_diff_usd": 2690,
+ "look_alike_median_price_pct": 59.0,
+ "magic_premium_natural_pct": 23.9,
+ "magic_premium_natural_cells": 74,
+ "magic_premium_lab_pct": 4.0,
+ "magic_premium_lab_cells": 32,
+ "note": "What the board finds on these shortlists, not a market-wide saving: prices are cell averages for average cut quality, and real stones of one weight vary in spread. The 1.00 ct step is the median change in price per carat from the 0.90-0.99 to the 1.00-1.19 band over the colour and clarity cells populated in both."
+}
