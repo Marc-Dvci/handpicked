@@ -1,0 +1,52 @@
+{
+ "description": "7 sample hands, each captured 12 more ways (re-encoded, rescaled, rotated, re-lit, blurred, noisy) and measured again as an upload.",
+ "hands": 7,
+ "variants": 84,
+ "measured": 81,
+ "refused": 3,
+ "median_abs_change_mm": 0.1,
+ "p90_abs_change_mm": 0.36,
+ "max_abs_change_mm": 0.68,
+ "size_changed": 2,
+ "size_moved_half": 29,
+ "by_transform": {
+  "re-encode": {
+   "n": 14,
+   "refused": 0,
+   "median_abs_change_mm": 0.22,
+   "max_abs_change_mm": 0.51
+  },
+  "rescale": {
+   "n": 14,
+   "refused": 0,
+   "median_abs_change_mm": 0.09,
+   "max_abs_change_mm": 0.43
+  },
+  "rotate": {
+   "n": 14,
+   "refused": 0,
+   "median_abs_change_mm": 0.095,
+   "max_abs_change_mm": 0.44
+  },
+  "relight": {
+   "n": 25,
+   "refused": 3,
+   "median_abs_change_mm": 0.09,
+   "max_abs_change_mm": 0.68
+  },
+  "blur and noise": {
+   "n": 14,
+   "refused": 0,
+   "median_abs_change_mm": 0.105,
+   "max_abs_change_mm": 0.38
+  }
+ },
+ "before": {
+  "measured": 75,
+  "refused": 9,
+  "median_abs_change_mm": 0.09,
+  "p90_abs_change_mm": 0.376,
+  "max_abs_change_mm": 8.62,
+  "size_changed": 3
+ }
+}

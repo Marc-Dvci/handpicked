@@ -1,3 +1,4 @@
+import cv2
 import numpy as np
 import pytest
 
@@ -73,3 +74,23 @@ def test_sheet_running_off_the_photo_is_refused():
     with pytest.raises(metrology.MeasureError) as e:
         metrology.find_sheet(img[:, 700:])
     assert e.value.code in ("sheet_cut", "sheet_corners")
+
+
+def test_finger_touching_its_neighbour_is_refused():
+    img, lm = scene(neighbour=True)
+    with pytest.raises(metrology.MeasureError) as e:
+        metrology.measure(img, lm)
+    assert e.value.code == "finger_edges"
+
+
+def test_photo_below_the_resolution_floor_is_refused():
+    img, lm = scene()
+    img, lm = cv2.resize(img, None, fx=0.27, fy=0.27, interpolation=cv2.INTER_AREA), lm * 0.27   # about 2.3 px/mm
+    with pytest.raises(metrology.MeasureError) as e:
+        metrology.measure(img, lm)
+    assert e.value.code == "low_resolution"
+
+
+def test_sheet_on_a_light_grey_table_is_still_found():
+    img, lm = scene(table=(214, 214, 212))
+    assert metrology.measure(img, lm).fingers["ring"].raw_width_mm == pytest.approx(16.8, abs=0.2)

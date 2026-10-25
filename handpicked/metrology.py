@@ -32,6 +32,8 @@ GAP_MM = 0.8                # paper must follow an edge for this long
 SEARCH_PAST_MM = 1.0        # the steepest-drop search runs this far past the midpoint crossing
 DROP_PER_MM = 4.0           # an edge falls at least this fast in chroma per mm
 MIN_WIDTH_MM, MAX_WIDTH_MM = 9.0, 26.0
+MIN_PX_PER_MM = 2.5         # E1 dev benches: accurate down to 2.61 px/mm (errors within 0.19 mm)
+PAPER_BAND = 24.0           # paper lightness spread (shading across the sheet), in L* units of 0-255
 WINDOW = 7                  # profiles in the ring-position window, 2% of the MCP-PIP span apart
 
 # MediaPipe hand landmark indices: (MCP, PIP) per finger
@@ -92,7 +94,21 @@ def find_sheet(rgb: np.ndarray) -> np.ndarray:
     if Lc.size < 1000:
         raise MeasureError("no_sheet", "No white sheet found in the photo.")
     thr, _ = cv2.threshold(Lc.astype(np.uint8).reshape(-1, 1), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    paper = ((L > max(thr, 150)) & (chroma < 14)).astype(np.uint8) * 255
+    # A light grey table can sit just above the Otsu split and join the sheet at the photo's edge. Paper is the
+    # brightest neutral surface in the photo, so when the sheet seems to run off the photo, it is looked for again
+    # among the pixels within PAPER_BAND of the paper's lightness.
+    levels = [max(thr, 150), max(thr, 150, float(np.percentile(Lc, 90)) - PAPER_BAND)]
+    for level in levels:
+        try:
+            return _order_long_vertical(_sheet_quad(small, L, chroma, level) / scale)
+        except MeasureError as e:
+            if e.code != "sheet_cut" or level == levels[-1]:
+                raise
+    raise AssertionError
+
+
+def _sheet_quad(small, L, chroma, level) -> np.ndarray:
+    paper = ((L > level) & (chroma < 14)).astype(np.uint8) * 255
     paper = cv2.morphologyEx(paper, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
     n, lab_img, stats, _ = cv2.connectedComponentsWithStats(paper, 8)
     if n < 2:
@@ -115,10 +131,10 @@ def find_sheet(rgb: np.ndarray) -> np.ndarray:
         raise MeasureError("sheet_corners", "All four corners of the sheet must be visible.")
     quad = _refine_corners(cnt.reshape(-1, 2).astype(np.float32), quad)
     border = 3.0
-    if (quad[:, 0] < border).any() or (quad[:, 1] < border).any() or (quad[:, 0] > small.shape[1] - border).any() \
-            or (quad[:, 1] > small.shape[0] - border).any():
+    if ((quad[:, 0] < border).any() or (quad[:, 1] < border).any() or (quad[:, 0] > small.shape[1] - border).any()
+            or (quad[:, 1] > small.shape[0] - border).any()):
         raise MeasureError("sheet_cut", "The sheet runs off the edge of the photo.")
-    return _order_long_vertical(quad / scale)
+    return quad
 
 
 def _refine_corners(contour: np.ndarray, quad: np.ndarray) -> np.ndarray:
@@ -263,6 +279,10 @@ class MediaPipeHands:
             return None
         h, w = rgb.shape[:2]
         return np.array([[p.x * w, p.y * h] for p in res.hand_landmarks[0]], dtype=np.float64)
+
+    def close(self):
+        """Stop the landmarker's threads; a process with an open landmarker does not exit."""
+        self._lm.close()
 
 
 # ----------------------------------------------------------------------------------------------- measuring
@@ -439,10 +459,24 @@ def measure(rgb: np.ndarray, landmarks_px: np.ndarray, focal_35mm: float = DEFAU
             line_px=line_px.round(1).tolist(), knuckle_line_px=kline_px,
             axis_px=[landmarks_px[mcp].round(1).tolist(), landmarks_px[pip].round(1).tolist()],
             wearing_location=round(location, 2))
-    out.checks["resolution_ok"] = out.px_per_mm >= 3.0
+    out.checks["resolution_ok"] = out.px_per_mm >= MIN_PX_PER_MM
     out.checks["edges_consistent"] = all(f.spread_mm <= 1.2 for f in out.fingers.values())
     out.checks = {k: bool(v) for k, v in out.checks.items()}
+    for k, ok in out.checks.items():        # a photo that fails a capture check is refused, never measured
+        if not ok and k in CHECK_REFUSALS:
+            code, message = CHECK_REFUSALS[k]
+            raise MeasureError(code, message.format(tilt=out.tilt_deg))
     return out
+
+
+CHECK_REFUSALS = {
+    "tilt_ok": ("tilted", "The camera was {tilt:.0f}° from straight above, or a corner of the sheet is hidden. Hold "
+                          "the phone flat over the sheet with all four corners in view."),
+    "resolution_ok": ("low_resolution", "The sheet is too small in the photo to measure the finger closely. Move "
+                                        "closer, with the whole sheet still in frame."),
+    "edges_consistent": ("edges_inconsistent", "The finger's edges do not agree along the ring position. Keep the "
+                                               "fingers flat and apart, in even light."),
+}
 
 
 def measure_photo(data: bytes, detector, fingers=("ring",)) -> HandMeasure:

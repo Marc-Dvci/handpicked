@@ -7,7 +7,7 @@ from handpicked import metrology
 
 
 def scene(finger_mm=16.8, knuckle_mm=18.4, angle_deg=0.0, tilt=0.12, size=(3000, 4000), shadow=True,
-          skin=(214, 160, 128), seed=0):
+          skin=(214, 160, 128), seed=0, neighbour=False, table=(122, 92, 64)):
     rng = np.random.default_rng(seed)
     W, H = size
     # sheet plane in mm -> image, through a mild perspective
@@ -15,7 +15,7 @@ def scene(finger_mm=16.8, knuckle_mm=18.4, angle_deg=0.0, tilt=0.12, size=(3000,
     src = np.array([[0, 0], [210, 0], [210, 297], [0, 297]], dtype=np.float32)
     P = cv2.getPerspectiveTransform(src, dst)
     img = np.zeros((H, W, 3), np.uint8)
-    img[:] = (122, 92, 64)                              # wooden table
+    img[:] = table                                      # wooden table by default
     img = (img + rng.normal(0, 6, img.shape)).clip(0, 255).astype(np.uint8)
     S = 24.0                                            # draw the sheet plane at 24 px/mm, then warp
     plane = np.full((int(297 * S), int(210 * S), 3), 246, np.uint8)
@@ -37,6 +37,10 @@ def scene(finger_mm=16.8, knuckle_mm=18.4, angle_deg=0.0, tilt=0.12, size=(3000,
         wdt = finger_mm if t < 0.85 else knuckle_mm
         pts.append(c + t * 22 * u - wdt / 2 * n)
     cv2.fillPoly(plane, [np.int32(np.array(pts) * S * 16)], skin, cv2.LINE_AA, 4)
+    if neighbour:   # a second finger lying against this one: no paper between them
+        side = [c - 1.4 * 22 * u + finger_mm / 2 * n, c + 1.4 * 22 * u + finger_mm / 2 * n,
+                c + 1.4 * 22 * u + (finger_mm / 2 + 17) * n, c - 1.4 * 22 * u + (finger_mm / 2 + 17) * n]
+        cv2.fillPoly(plane, [np.int32(np.array(side) * S * 16)], skin, cv2.LINE_AA, 4)
     M = P @ np.array([[1 / S, 0, 0], [0, 1 / S, 0], [0, 0, 1]])
     warped = cv2.warpPerspective(plane, M, (W, H), flags=cv2.INTER_LINEAR)
     mask = cv2.warpPerspective(np.full(plane.shape[:2], 255, np.uint8), M, (W, H))
