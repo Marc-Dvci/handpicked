@@ -93,7 +93,7 @@ INSTRUCTION = [
     r"\b(?:as|comme|en tant que)\b",
 ]
 NOT_DIAMOND = {"moissanite": "moissanite", "sapphire": "sapphire", "saphir": "sapphire", "cubic zirconia": "cubic zirconia",
-               "zircon": "zircon", "zirconium": "cubic zirconia", "zirconia": "cubic zirconia", "topaz": "topaz",
+               "zircon": "zircon", "zircone": "cubic zirconia", "zirconium": "cubic zirconia", "zirconia": "cubic zirconia", "topaz": "topaz",
                "topaze": "topaz", "simulant": "simulant", "white spinel": "spinel", "spinelle": "spinel",
                "crystal glass": "glass", "verre": "glass"}
 
@@ -136,7 +136,10 @@ def parse(text: str) -> Listing:
     # --- carat weight (not gold karat, not total carat weight of a ring)
     for m in re.finditer(rf"(?<![\w.,])({NUM})\s*(?:carats?|cts?\.?|carat)(?!\s*(?:gold|or\b|white|yellow|rose))(\s*(?:tw|t\.w\.|ctw|tcw|total))?",
                          text, re.I):
-        if m.group(2) or re.match(r"\s*(?:ctw|cttw|tcw|ct\.?\s*t\.?w|carats?\s*(?:total|t\.?w))", text[m.start(1) + len(m.group(1)):], re.I):
+        before = text[max(0, m.start() - 24):m.start()]
+        line_before = before.rsplit("\n", 1)[-1]
+        if m.group(2) or re.match(r"\s*(?:ctw|cttw|tcw|ct\.?\s*t\.?w|carats?\s*(?:total|t\.?w))", text[m.start(1) + len(m.group(1)):], re.I) \
+                or re.search(r"\b(?:total|totale|t\.?w\.?)\b", line_before, re.I):
             L.notes.append("total carat weight found; the centre stone weight is needed")
             continue
         v = to_float(m.group(1))
@@ -146,7 +149,7 @@ def parse(text: str) -> Listing:
             _set(L, "carat", v, m, 1)
             break
     if "carat" not in L.fields:
-        m = _first(rf"(?:carat\s*weight|weight|poids|carat)\s*[:=]?\s*({NUM})(?!\s*(?:k\b|kt\b|gold|or\b))", text)
+        m = _first(rf"(?:carat\s*weight|weight|poids|carat)(?!\s*total)\s*[:=.…]*\s*({NUM})(?!\s*(?:k\b|kt\b|gold|or\b))", text)
         if m and 0.1 <= to_float(m.group(1)) <= 15:
             _set(L, "carat", to_float(m.group(1)), m, 1)
     if re.search(r"\b\d{1,2}\s*(?:k|kt|karat|carats?)\s*(?:gold|or)\b", low):
@@ -193,6 +196,10 @@ def parse(text: str) -> Listing:
             before = text[max(0, cand.start() - 16):cand.start()].lower()
             if re.match(r"\s*(?:/\s*mo|per month|/\s*mois|par mois|a month)", after) or "setting" in before or "monture" in before:
                 continue   # financing instalments and setting-only prices are not the stone price
+            if re.search(r"\b(?:from|starting at|à partir de|a partir de|dès|des)\s*$", before):
+                if "price is a 'from' price" not in L.notes:
+                    L.notes.append("price is a 'from' price")
+                continue
             m = cand
             break
         if m:
@@ -204,11 +211,8 @@ def parse(text: str) -> Listing:
             v = to_float(num)
         except ValueError:
             v = None
-        if v and v >= 50:
+        if v and v >= 10:
             L.fields["price"] = Field({"amount": v, "currency": CURRENCY[sym.lower()]}, m.start(), m.end(), m.group(0))
-            pre = text[max(0, m.start() - 12):m.start()].lower()
-            if "from" in pre or "à partir" in pre or "dès" in pre:
-                L.notes.append("price is a 'from' price")
 
     # --- grading facts
     m = _first(r"\b(" + "|".join(LABS) + r")\b", text, 0)
@@ -217,19 +221,19 @@ def parse(text: str) -> Listing:
     m = _first(r"(?:report|certificate|certificat|rapport)\s*(?:no\.?|number|n°|#)?\s*[:#]?\s*(\d{7,12})", text)
     if m:
         _set(L, "report_number", m.group(1), m, 1)
-    m = _first(r"\b(lab[- ]?grown|laboratory[- ]grown|lab[- ]created|created diamond|cvd|hpht|synth[eé]tique|de laboratoire|cultiv[ée]e?)\b", text)
+    m = _first(r"\b(lab[- ]?grown|laboratory[- ]grown|lab[- ]created|created diamond|man-made|cvd|hpht|synth[eé]tiques?|de synth[eè]se|de laboratoire|cultiv[ée]e?s?)\b", text)
     if m:
         _set(L, "origin", "lab", m, 1)
     else:
-        m = _first(r"\b(natural|mined|earth[- ]mined|naturel(?:le)?)\b", text)
+        m = _first(r"\b(natural|mined|earth[- ]mined|naturel(?:le)?s?)\b", text)
         if m:
             _set(L, "origin", "natural", m, 1)
-    m = _first(r"(?:colou?r|couleur)\s*(?:grade)?\s*[:=]?\s*([D-M])\b", text) or _first(r"\b([D-K])\s*(?:colou?r)\b", text)
+    m = _first(r"(?:colou?r|couleur)\s*(?:grade)?[\s.:=…]*([D-M])\b", text) or _first(r"\b([D-K])\s*(?:colou?r)\b", text)
     if m:
         _set(L, "colour", m.group(1).upper(), m, 1)
-    m = _first(r"\b(" + "|".join(CLARITY) + r")\b", text, 0)
+    m = _first(r"\b(FL|IF|VVS ?[12]|VS ?[12]|SI ?[12]|I[123])\b", text, 0)
     if m:
-        _set(L, "clarity", m.group(1), m, 1)
+        L.fields["clarity"] = Field(m.group(1).replace(" ", ""), m.start(1), m.end(1), m.group(1))
     m = _first(r"(?:depth|profondeur)\s*(?:%|percentage)?\s*[:=]?\s*(\d{2}(?:[.,]\d)?)\s*%", text)
     if m:
         _set(L, "depth_pct", to_float(m.group(1)), m, 1)
