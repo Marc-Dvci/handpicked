@@ -120,3 +120,21 @@ def test_non_diamond_stone_is_named():
 def test_negated_material_is_not_a_non_diamond():
     L = listing.parse("Natural diamond, not moissanite! Round 1.00 ct 6.41 x 6.44 x 3.97 mm $5,200")
     assert "not_diamond" not in L.fields
+
+
+def test_model_cannot_bring_back_a_from_price():
+    L = listing.parse("Diamant naturel coussin 0,90 carat, 5,77 x 5,55 x 3,45 mm. À partir de 5 400 €")
+    assert "price" not in L.fields
+    assert listing.ground_model_fields(L, {"price": {"value": {"amount": 5400, "currency": "EUR"}, "quote": "5 400 €"}}) == ["price"]
+
+
+def test_model_cannot_bring_back_an_instalment():
+    L = listing.parse("Oval 1.00 ct, 7.9 x 5.6 x 3.4 mm, or 4 payments of $410")
+    assert listing.ground_model_fields(L, {"price": {"value": {"amount": 410, "currency": "USD"}, "quote": "$410"}}) == ["price"]
+
+
+def test_model_cannot_quote_around_a_starting_price():
+    L = listing.parse("Pear lab-grown 1.20 ct, 9.30 x 5.81 x 3.70 mm\nStarting from $1,640")
+    assert "price" not in L.fields
+    q = {"price": {"value": {"amount": 1640, "currency": "USD"}, "quote": "Starting from $1,640"}}
+    assert listing.ground_model_fields(L, q) == ["price"]

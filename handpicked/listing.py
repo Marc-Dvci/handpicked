@@ -192,13 +192,12 @@ def parse(text: str) -> Listing:
     m = None
     for pat in (rf"{cur}\s*{amount}", rf"{amount}\s*{cur}"):
         for cand in re.finditer(pat, text, re.I):
-            after = text[cand.end():cand.end() + 12].lower()
-            before = text[max(0, cand.start() - 16):cand.start()].lower()
-            if re.match(r"\s*(?:/\s*mo|per month|/\s*mois|par mois|a month)", after) or "setting" in before or "monture" in before:
-                continue   # financing instalments and setting-only prices are not the stone price
-            if re.search(r"\b(?:from|starting at|à partir de|a partir de|dès|des)\s*$", before):
+            why = price_context(text, cand.start(), cand.end())
+            if why == "from":
                 if "price is a 'from' price" not in L.notes:
                     L.notes.append("price is a 'from' price")
+                continue
+            if why:
                 continue
             m = cand
             break
@@ -250,6 +249,21 @@ def parse(text: str) -> Listing:
     return L
 
 
+def price_context(text: str, start: int, end: int) -> str | None:
+    """Why the amount at text[start:end] is not the price of this stone: "instalment", "setting" or "from"; None
+    when it is."""
+    after = text[end:end + 14].lower()
+    before = re.sub(r"(?:us\$|\$|€|£|eur|usd|gbp|chf)\s*$", "", text[max(0, start - 28):start].lower())
+    if re.match(r"\s*(?:/\s*mo|per month|/\s*mois|par mois|a month|x\s*\d|/\s*month)", after) \
+            or re.search(r"\b(?:\d\s*x|ou \d+\s*x|or \d+ payments of|payments? of|mensualités?)\s*$", before):
+        return "instalment"
+    if re.search(r"\b(?:setting|monture|mount)\b[^\n]{0,20}$", before):
+        return "setting"
+    if re.search(r"\b(?:from|starting at|à partir de|a partir de|dès|des)\s*$", before):
+        return "from"
+    return None
+
+
 REQUIRED = ("carat", "shape", "measurements", "price")
 
 
@@ -288,12 +302,23 @@ def ground_model_fields(listing: Listing, proposed: dict) -> list[str]:
         if start < 0 or value is None or not _quote_states(name, quote, value):
             rejected.append(name)
             continue
+        if name == "price" and _price_refused(text, start, start + len(quote)):
+            rejected.append(name)
+            continue
         listing.fields[name] = Field(value, start, start + len(quote), listing.text[start:start + len(quote)],
                                      method="model")
     return rejected
 
 
 GROUNDABLE = ("carat", "shape", "measurements", "price", "lab", "origin")
+
+
+def _price_refused(text: str, start: int, end: int) -> bool:
+    """A price the model quotes is held to the rules' context checks, on the amount inside the quote."""
+    for m in _NUMS.finditer(text[start:end]):
+        if price_context(text, start + m.start(), start + m.end()):
+            return True
+    return price_context(text, start, end) is not None
 _NUMS = re.compile(r"\d{1,3}(?:[ .,\xa0]\d{3})+(?:[.,]\d{1,2})?|\d+(?:[.,]\d+)?")
 
 
