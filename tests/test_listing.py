@@ -138,3 +138,9 @@ def test_model_cannot_quote_around_a_starting_price():
     assert "price" not in L.fields
     q = {"price": {"value": {"amount": 1640, "currency": "USD"}, "quote": "Starting from $1,640"}}
     assert listing.ground_model_fields(L, q) == ["price"]
+
+
+def test_dot_thousands_and_dollar_words_in_prices():
+    assert listing.parse("Oval 0.98 ct, asking 2.400 EUR").get("price") == {"amount": 2400.0, "currency": "EUR"}
+    assert listing.parse("Emerald 1.12ct, 6.900 CHF").get("price") == {"amount": 6900.0, "currency": "CHF"}
+    assert listing.parse("Radiant 1.05ct. 5,450 dollars").get("price") == {"amount": 5450.0, "currency": "USD"}

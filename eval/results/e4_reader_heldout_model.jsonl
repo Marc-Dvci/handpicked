@@ -1,0 +1,30 @@
+{"id": "L002", "format": "gia_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L004", "format": "gia_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L006", "format": "gia_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L008", "format": "gia_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L010", "format": "gia_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L012", "format": "igi_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L014", "format": "igi_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L016", "format": "igi_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L018", "format": "igi_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L020", "format": "igi_report", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L022", "format": "retailer_en", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L024", "format": "retailer_en", "split": "heldout", "fields": {"carat": {"got": 1.5, "want": null}}, "status": "waiting"}
+{"id": "L026", "format": "retailer_en", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L028", "format": "retailer_en", "split": "heldout", "fields": {}, "status": "waiting"}
+{"id": "L030", "format": "retailer_en", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L032", "format": "retailer_fr", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L034", "format": "retailer_fr", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L036", "format": "retailer_fr", "split": "heldout", "fields": {}, "status": "waiting"}
+{"id": "L038", "format": "retailer_fr", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L040", "format": "retailer_fr", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L042", "format": "marketplace_en", "split": "heldout", "fields": {"shape": {"got": "round", "want": null}}, "status": "waiting"}
+{"id": "L044", "format": "marketplace_en", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L046", "format": "marketplace_en", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L048", "format": "marketplace_en", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L050", "format": "marketplace_en", "split": "heldout", "fields": {}, "status": "waiting"}
+{"id": "L052", "format": "marketplace_fr", "split": "heldout", "fields": {"shape_unsupported": {"got": "cœur", "want": "heart"}}, "status": "waiting"}
+{"id": "L054", "format": "marketplace_fr", "split": "heldout", "fields": {}, "status": "ready"}
+{"id": "L056", "format": "marketplace_fr", "split": "heldout", "fields": {"colour": {"got": null, "want": "G"}}, "status": "ready"}
+{"id": "L058", "format": "marketplace_fr", "split": "heldout", "fields": {"shape": {"got": null, "want": "round"}}, "status": "waiting"}
+{"id": "L060", "format": "marketplace_fr", "split": "heldout", "fields": {"colour": {"got": null, "want": "F"}}, "status": "ready"}

@@ -22,6 +22,7 @@ SHAPE_WORDS = {
 }
 UNSUPPORTED_SHAPES = ["heart", "coeur", "cœur", "asscher", "trillion", "baguette", "kite", "half moon"]
 CURRENCY = {"€": "EUR", "eur": "EUR", "euro": "EUR", "euros": "EUR", "$": "USD", "usd": "USD", "us$": "USD",
+            "dollar": "USD", "dollars": "USD",
             "£": "GBP", "gbp": "GBP", "chf": "CHF"}
 LABS = ["GIA", "IGI", "HRD", "GCAL", "AGS", "GSI", "EGL"]
 CLARITY = ["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "I1", "I2", "I3"]
@@ -69,6 +70,14 @@ def to_float(s: str) -> float:
         head, tail = s.rsplit(",", 1)
         s = s.replace(",", "") if len(tail) == 3 and head.isdigit() and len(head) <= 3 else s.replace(",", ".")
     return float(s)
+
+
+def to_money(s: str) -> float:
+    """Like to_float, but a dot followed by exactly three digits is a thousands separator: '2.400' -> 2400."""
+    t = s.strip().replace("\xa0", " ")
+    if re.fullmatch(r"\d{1,3}(?:\.\d{3})+", t):
+        return float(t.replace(".", ""))
+    return to_float(t)
 
 
 def _first(pattern, text, flags=re.I):
@@ -187,7 +196,7 @@ def parse(text: str) -> Listing:
         _set(L, "shape", best[0], best[1])
 
     # --- price (the first amount with a currency; "from" prices are flagged)
-    cur = r"(€|eur(?:os?)?|\$|us\$|usd|£|gbp|chf)"
+    cur = r"(€|eur(?:os?)?\b|\$|us\$|usd|dollars?\b|£|gbp|chf)"
     amount = r"(\d{1,3}(?:[ ., \xa0]\d{3})+(?:[.,]\d{2})?|\d+(?:[.,]\d{2})?)"
     m = None
     for pat in (rf"{cur}\s*{amount}", rf"{amount}\s*{cur}"):
@@ -207,7 +216,7 @@ def parse(text: str) -> Listing:
         g = m.groups()
         sym, num = (g[0], g[1]) if not g[0][0].isdigit() else (g[1], g[0])
         try:
-            v = to_float(num)
+            v = to_money(num)
         except ValueError:
             v = None
         if v and v >= 10:
@@ -322,11 +331,11 @@ def _price_refused(text: str, start: int, end: int) -> bool:
 _NUMS = re.compile(r"\d{1,3}(?:[ .,\xa0]\d{3})+(?:[.,]\d{1,2})?|\d+(?:[.,]\d+)?")
 
 
-def _numbers_in(quote: str) -> list[float]:
+def _numbers_in(quote: str, money: bool = False) -> list[float]:
     out = []
     for tok in _NUMS.findall(quote):
         try:
-            out.append(to_float(tok))
+            out.append(to_money(tok) if money else to_float(tok))
         except ValueError:
             pass
     return out
@@ -370,8 +379,8 @@ def _quote_states(name, quote, value) -> bool:
     if name == "measurements":
         return all(_has(nums, value[k], 0.011) for k in ("length", "width", "depth")) and "mm" in q
     if name == "price":
-        sym = {"EUR": ("€", "eur"), "USD": ("$", "usd"), "GBP": ("£", "gbp"), "CHF": ("chf",)}[value["currency"]]
-        return _has(nums, value["amount"], 0.51) and any(x in q for x in sym) \
+        sym = {"EUR": ("€", "eur"), "USD": ("$", "usd", "dollar"), "GBP": ("£", "gbp"), "CHF": ("chf",)}[value["currency"]]
+        return _has(_numbers_in(quote, money=True), value["amount"], 0.51) and any(x in q for x in sym) \
             and not re.search(r"/\s*mo|per month|par mois|/\s*mois|setting|monture", q)
     if name == "shape":
         return any(re.search(rf"\b{re.escape(w)}\b", q) for w in SHAPE_WORDS[value])

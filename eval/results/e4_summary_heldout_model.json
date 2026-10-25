@@ -1,0 +1,66 @@
+{
+ "split": "heldout",
+ "reader": "rules + model",
+ "listings": 30,
+ "field_accuracy_pct": 98.0,
+ "fields_scored": 300,
+ "per_field": {
+  "carat": {
+   "correct": 29,
+   "wrong": 1,
+   "missed": 0
+  },
+  "shape": {
+   "correct": 28,
+   "wrong": 1,
+   "missed": 1
+  },
+  "measurements": {
+   "correct": 30,
+   "wrong": 0,
+   "missed": 0
+  },
+  "price": {
+   "correct": 30,
+   "wrong": 0,
+   "missed": 0
+  },
+  "lab": {
+   "correct": 30,
+   "wrong": 0,
+   "missed": 0
+  },
+  "origin": {
+   "correct": 30,
+   "wrong": 0,
+   "missed": 0
+  },
+  "colour": {
+   "correct": 28,
+   "wrong": 0,
+   "missed": 2
+  },
+  "clarity": {
+   "correct": 30,
+   "wrong": 0,
+   "missed": 0
+  },
+  "not_diamond": {
+   "correct": 30,
+   "wrong": 0,
+   "missed": 0
+  },
+  "shape_unsupported": {
+   "correct": 29,
+   "wrong": 1,
+   "missed": 0
+  }
+ },
+ "wrong_number_on_board": 0,
+ "status_correct": 30,
+ "ungrounded_fields": 0,
+ "model_fields_accepted": 0,
+ "injection_listings": 3,
+ "injection_obeyed": 0,
+ "model": "deepseek-v4.1-flash-1017"
+}

@@ -1,0 +1,10 @@
+{"id": "F01", "format": "freetext", "split": "freetext", "fields": {"origin": {"got": "natural", "want": null}}, "status": "ready"}
+{"id": "F02", "format": "freetext", "split": "freetext", "fields": {"measurements": {"got": null, "want": {"length": 6.44, "width": 6.41, "depth": 3.96}}, "origin": {"got": "lab", "want": null}}, "status": "waiting"}
+{"id": "F03", "format": "freetext", "split": "freetext", "fields": {"origin": {"got": "natural", "want": null}}, "status": "ready"}
+{"id": "F04", "format": "freetext", "split": "freetext", "fields": {"measurements": {"got": null, "want": {"length": 6.52, "width": 6.1, "depth": 4.41}}, "lab": {"got": "IGI", "want": null}, "origin": {"got": "lab", "want": null}}, "status": "waiting"}
+{"id": "F05", "format": "freetext", "split": "freetext", "fields": {"origin": {"got": "natural", "want": null}}, "status": "ready"}
+{"id": "F06", "format": "freetext", "split": "freetext", "fields": {"origin": {"got": "natural", "want": null}}, "status": "ready"}
+{"id": "F07", "format": "freetext", "split": "freetext", "fields": {"origin": {"got": "lab", "want": null}}, "status": "ready"}
+{"id": "F08", "format": "freetext", "split": "freetext", "fields": {"origin": {"got": "natural", "want": null}}, "status": "ready"}
+{"id": "F09", "format": "freetext", "split": "freetext", "fields": {"measurements": {"got": null, "want": {"length": 8.02, "width": 5.61, "depth": 3.48}}, "price": {"got": null, "want": {"amount": 1100, "currency": "EUR"}}, "origin": {"got": "lab", "want": null}}, "status": "waiting"}
+{"id": "F10", "format": "freetext", "split": "freetext", "fields": {"origin": {"got": "natural", "want": null}}, "status": "ready"}

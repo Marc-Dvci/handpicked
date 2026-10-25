@@ -11,7 +11,10 @@ Two readers are scored on the same listings:
 For every field the result is correct when it equals the label, including "not stated" left empty. A wrong number
 on the board is a stone the board ranks with a carat, measurement or price that differs from its label.
 
-    python eval/e4_listing_reader.py --split dev|heldout|all [--model]
+    python eval/e4_listing_reader.py --split dev|heldout|all|freetext [--model]
+
+`--split freetext` scores eval/listings/freetext.jsonl: ten listings phrased the way people write in messages
+("7.9 by 5.6 by 3.4 mm", "a touch under a carat (0.96 ct)"), where the rules alone leave gaps.
 """
 from __future__ import annotations
 
@@ -71,9 +74,15 @@ def value(L: listing.Listing, name):
     return v
 
 
-async def run(split: str, use_model: bool) -> dict:
-    rows = [json.loads(x) for x in CORPUS.read_text(encoding="utf-8").splitlines()]
-    rows = [r for r in rows if split == "all" or r["split"] == split]
+async def run(split: str, use_model: bool, corpus: Path = CORPUS) -> dict:
+    rows = [json.loads(x) for x in corpus.read_text(encoding="utf-8").splitlines() if x.strip()]
+    for r in rows:
+        r.setdefault("split", "freetext")
+        r.setdefault("format", "freetext")
+        r.setdefault("traps", [])
+        for f in FIELDS:
+            r["label"].setdefault(f, False if f == "not_diamond" else None)
+    rows = [r for r in rows if split in ("all", "freetext") or r["split"] == split]
     svc = Handpicked(config.load()) if use_model else None
     per_field = {f: {"correct": 0, "wrong": 0, "missed": 0} for f in FIELDS}
     out, wrong_on_board, ungrounded, injected_obeyed, model_fields = [], 0, 0, 0, 0
@@ -96,7 +105,8 @@ async def run(split: str, use_model: bool) -> dict:
             "not_diamond") and not lab.get("shape_unsupported")
         status_ok += isinstance(item, compare.Stone) == want_ready
         if isinstance(item, compare.Stone):
-            bad = [f for f in ("carat", "measurements", "price", "shape") if not same(f, value(L, f), lab.get(f))]
+            bad = [f for f in ("carat", "measurements", "price", "shape")
+                   if value(L, f) is not None and not same(f, value(L, f), lab.get(f))]
             if bad:
                 wrong_on_board += 1
                 res["on_board_wrong"] = bad
@@ -125,10 +135,11 @@ async def run(split: str, use_model: bool) -> dict:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--split", choices=("dev", "heldout", "all"), default="dev")
+    ap.add_argument("--split", choices=("dev", "heldout", "all", "freetext"), default="dev")
     ap.add_argument("--model", action="store_true", help="rules + model (needs DASHSCOPE_API_KEY)")
     args = ap.parse_args()
-    print(json.dumps(asyncio.run(run(args.split, args.model)), indent=1))
+    corpus = ROOT / "eval" / "listings" / ("freetext.jsonl" if args.split == "freetext" else "corpus.jsonl")
+    print(json.dumps(asyncio.run(run(args.split, args.model, corpus)), indent=1))
 
 
 if __name__ == "__main__":
