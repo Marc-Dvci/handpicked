@@ -1,0 +1,60 @@
+{
+ "calls": 140,
+ "measured": 140,
+ "errors": 0,
+ "hands": 7,
+ "rings": 20,
+ "shapes": [
+  "emerald",
+  "oval",
+  "pear",
+  "round"
+ ],
+ "seconds_median": 4.62,
+ "open_loop": {
+  "k_by_shape": {
+   "emerald": 1.2665,
+   "oval": 1.1896,
+   "pear": 1.1771,
+   "round": 1.1829
+  },
+  "residual_median_pct": 1.95,
+  "residual_p90_pct": 4.76,
+  "residual_max_pct": 6.72
+ },
+ "per_render": {
+  "c_by_shape": {
+   "emerald": 1.1449,
+   "oval": 1.0728,
+   "pear": 1.0496,
+   "round": 1.0615
+  },
+  "renders": 133,
+  "excluded_band_hidden": 7,
+  "residual_median_pct": 0.92,
+  "residual_p90_pct": 2.32,
+  "residual_max_pct": 4.56,
+  "within_3pct": 123,
+  "within_5pct": 133
+ },
+ "band_fit": {
+  "median": 1.113,
+  "by_hand": {
+   "hand-1": 1.132,
+   "hand-2": 1.101,
+   "hand-3": 1.146,
+   "hand-4": 1.14,
+   "hand-5": 1.106,
+   "hand-6": 1.124,
+   "hand-7": 1.078
+  },
+  "within_hand_p90_pct": 2.89
+ },
+ "single_photo_baseline_error_pct": {
+  "0.24": 66.7,
+  "0.32": 25.0,
+  "0.40": 0.0,
+  "0.48": 16.7,
+  "0.56": 28.6
+ }
+}
