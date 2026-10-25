@@ -164,6 +164,11 @@ class HandStore:
             self._detector = self._detector_factory()
         return self._detector
 
+    def close(self):
+        if self._detector is not None and hasattr(self._detector, "close"):
+            self._detector.close()
+        self._detector = None
+
     def _dir(self, hand_id: str) -> Path:
         return self.var_dir / hand_id
 

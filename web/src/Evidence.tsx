@@ -78,8 +78,16 @@ export default function Evidence({ evidence, status }: { evidence: EvidenceData 
             <Tile value={mm(e2.median_abs_change_mm)} label="median change in finger width" />
             <Tile value={mm(e2.p90_abs_change_mm)} label="90th percentile" />
             <Tile value={`${e2.measured}/${e2.variants}`} label="variants measured" />
-            <Tile value={`${e2.size_changed}`} label="ring sizes changed by more than half a size" />
+            <Tile value={`${e2.measured - e2.size_changed}/${e2.measured}`} label="ring size within half a size of the original photo's" />
           </div>
+          {e2.before && (
+            <p className="small">
+              Before and after: this set first found a darker photo whose sheet corner was misread, measured{" "}
+              {mm(e2.before.max_abs_change_mm)} narrower without a refusal, and a light grey table taken for paper. Failed capture
+              checks now refuse the photo with an instruction, and the sheet is looked for again when a light table touches it:
+              {" "}{e2.before.measured} → {e2.measured} of {e2.variants} measured, largest change {mm(e2.before.max_abs_change_mm)} → {mm(e2.max_abs_change_mm)}.
+            </p>
+          )}
           {e2.by_transform && (
             <table className="fields ev-table">
               <tbody>
@@ -99,14 +107,15 @@ export default function Evidence({ evidence, status }: { evidence: EvidenceData 
             each render, divided by the finger width, is the size the shopper sees.
           </p>
           <div className="tiles">
-            <Tile value={`${e3.per_render.residual_median_pct}%`} label="median error, stone width" />
-            <Tile value={`${e3.per_render.residual_p90_pct}%`} label="90th percentile" />
-            <Tile value={`${e3.per_render.within_5pct}/${e3.per_render.renders}`} label="renders within 5%" />
+            <Tile value={`${e3.leave_one_hand_out.residual_median_pct}%`} label="median error, stone width, on a hand left out of the fit" />
+            <Tile value={`${e3.leave_one_hand_out.residual_p90_pct}%`} label="90th percentile" />
+            <Tile value={`${e3.leave_one_hand_out.within_5pct}/${e3.leave_one_hand_out.renders}`} label="renders within 5%" />
             <Tile value={`${e3.calls}`} label={`live calls, ${e3.errors} failed, median ${e3.seconds_median} s`} />
           </div>
           <p className="small">
-            One store photo used for every stone size would be off by up to {maxBaseline}%. {e3.per_render.excluded_band_hidden} renders
-            are left out of the fit because the stone hides the band. Shapes: {(e3.shapes as string[]).join(", ")}.
+            With every hand in the fit the median is {e3.per_render.residual_median_pct}% and {e3.per_render.within_5pct} of {e3.per_render.renders} renders
+            are within 5%. One store photo used for every stone size would be off by up to {maxBaseline}%. {e3.per_render.excluded_band_hidden} renders
+            are left out because the stone hides the band. Shapes: {(e3.shapes as string[]).join(", ")}.
           </p>
         </Ev>
       )}
@@ -137,12 +146,15 @@ export default function Evidence({ evidence, status }: { evidence: EvidenceData 
         <Ev no="E5" title="What the comparison is worth on sample shortlists" cmd="python eval/e5_decision_value.py">
           <p>{e5.description}</p>
           <div className="tiles">
-            <Tile value={`$${Math.round(e5.median_saving_usd).toLocaleString("en-US")}`} label="median saving at equal or larger face-up area" />
-            <Tile value={`${e5.shortlists_with_saving}/${e5.shortlists}`} label="shortlists where a cheaper stone faces up as large" />
-            <Tile value={`${e5.median_saving_pct}%`} label="median saving, share of the heaviest stone's price" />
-            <Tile value={`+${e5.magic_premium_natural_pct}%`} label="price step at 1.00 ct, natural, matched grades" />
+            <Tile value={`${e5.shortlists_with_saving}/${e5.shortlists}`} label="shortlists where a cheaper stone faces up at least as large" />
+            <Tile value={`$${Math.round(e5.median_saving_usd).toLocaleString("en-US")}`} label={`median saving there, ${e5.median_saving_pct}% of the heaviest stone's price`} />
+            <Tile value={`${e5.look_alike_median_across_mm.toFixed(2)} mm`} label={`median width gap between the round at the weight and the one just under it; ${e5.look_alike_pairs} of ${e5.shortlists} pairs`} />
+            <Tile value={`+${e5.magic_premium_natural_pct}%`} label={`price per carat step at 1.00 ct, natural rounds (${e5.magic_premium_natural_cells} matched cells; lab-grown +${e5.magic_premium_lab_pct}%)`} />
           </div>
-          <p className="small">{e5.note}</p>
+          <p className="small">
+            The round just under the weight costs a median ${e5.look_alike_median_price_diff_usd.toLocaleString("en-US")} less than the round at it.
+            Every stone that faced up at least as large for less was an oval. {e5.note}
+          </p>
         </Ev>
       )}
 

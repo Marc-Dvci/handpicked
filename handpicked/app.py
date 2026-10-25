@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import asyncio
 import secrets
+from contextlib import asynccontextmanager
 from functools import lru_cache
 from pathlib import Path
 
@@ -20,8 +21,17 @@ from .service import Handpicked, evidence, hand_public
 MAX_UPLOAD = 15 * 1024 * 1024
 WEB = Path(__file__).resolve().parent.parent / "web" / "dist"
 
-app = FastAPI(title="Handpicked", version="1.0.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
 _svc: Handpicked | None = None
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    yield
+    if _svc is not None:
+        _svc.close()
+
+
+app = FastAPI(title="Handpicked", version="1.0.0", docs_url="/api/docs", openapi_url="/api/openapi.json", lifespan=lifespan)
 _tryon_lock = asyncio.Semaphore(4)
 
 

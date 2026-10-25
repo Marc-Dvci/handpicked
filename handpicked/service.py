@@ -53,6 +53,9 @@ class Handpicked:
         self.inventory = json.loads(inv.read_text(encoding="utf-8")) if inv.exists() else {"stones": []}
         self._credit = (0.0, None)
 
+    def close(self):
+        self.hands.close()
+
     # ------------------------------------------------------------------ model calls, cached on disk
     async def _cached(self, kind: str, payload: str, call):
         key = hashlib.sha256(f"{kind}|{self.s.model}|{payload}".encode()).hexdigest()[:24]

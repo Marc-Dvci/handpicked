@@ -5,7 +5,7 @@ import { Dim } from "./draw";
 const CHECKS: Record<string, string> = {
   sheet_found: "Sheet found, four corners in frame",
   tilt_ok: "Camera within 35° of straight above",
-  resolution_ok: "At least 3 pixels per millimetre",
+  resolution_ok: "At least 2.5 pixels per millimetre",
   edges_consistent: "Finger edges agree within 1.2 mm",
 };
 
