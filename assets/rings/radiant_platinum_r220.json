@@ -1,0 +1,63 @@
+{
+ "name": "radiant_platinum_r220",
+ "shape": "radiant",
+ "metal": "platinum",
+ "ratio": 0.22,
+ "image": "radiant_platinum_r220.jpg",
+ "resolution": 768,
+ "inner_diameter_mm": 17.0,
+ "outer_diameter_mm": 20.4,
+ "band_width_mm": 2.0,
+ "band_thickness_mm": 1.7,
+ "fit_width": "outer_diameter_mm",
+ "length_to_width": 1.25,
+ "stone_width_mm": 4.488,
+ "stone_length_mm": 5.61,
+ "depth_mm": 2.7826,
+ "head_width_mm": 4.8306,
+ "anchor_points": [
+  [
+   122,
+   426
+  ],
+  [
+   646,
+   426
+  ]
+ ],
+ "inner_edge_px": [
+  [
+   121.7,
+   426.21
+  ],
+  [
+   646.3,
+   426.21
+  ]
+ ],
+ "outer_edge_px": [
+  [
+   69.25,
+   426.21
+  ],
+  [
+   698.75,
+   426.21
+  ]
+ ],
+ "stone_px": [
+  [
+   314.75,
+   294.31
+  ],
+  [
+   453.25,
+   294.31
+  ]
+ ],
+ "px_per_mm": 30.85853,
+ "camera": {
+  "type": "orthographic",
+  "elevation_deg": 70.0
+ }
+}

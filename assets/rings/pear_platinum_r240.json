@@ -1,0 +1,63 @@
+{
+ "name": "pear_platinum_r240",
+ "shape": "pear",
+ "metal": "platinum",
+ "ratio": 0.24,
+ "image": "pear_platinum_r240.jpg",
+ "resolution": 768,
+ "inner_diameter_mm": 17.0,
+ "outer_diameter_mm": 20.4,
+ "band_width_mm": 2.0,
+ "band_thickness_mm": 1.7,
+ "fit_width": "outer_diameter_mm",
+ "length_to_width": 1.6,
+ "stone_width_mm": 4.896,
+ "stone_length_mm": 7.8336,
+ "depth_mm": 3.0355,
+ "head_width_mm": 5.5452,
+ "anchor_points": [
+  [
+   122,
+   427
+  ],
+  [
+   646,
+   427
+  ]
+ ],
+ "inner_edge_px": [
+  [
+   121.7,
+   426.81
+  ],
+  [
+   646.3,
+   426.81
+  ]
+ ],
+ "outer_edge_px": [
+  [
+   69.25,
+   426.81
+  ],
+  [
+   698.75,
+   426.81
+  ]
+ ],
+ "stone_px": [
+  [
+   308.46,
+   293.03
+  ],
+  [
+   459.54,
+   293.03
+  ]
+ ],
+ "px_per_mm": 30.85853,
+ "camera": {
+  "type": "orthographic",
+  "elevation_deg": 70.0
+ }
+}

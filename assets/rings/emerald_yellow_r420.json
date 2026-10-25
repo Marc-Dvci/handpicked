@@ -1,0 +1,63 @@
+{
+ "name": "emerald_yellow_r420",
+ "shape": "emerald",
+ "metal": "yellow",
+ "ratio": 0.42,
+ "image": "emerald_yellow_r420.jpg",
+ "resolution": 768,
+ "inner_diameter_mm": 17.0,
+ "outer_diameter_mm": 20.4,
+ "band_width_mm": 2.0,
+ "band_thickness_mm": 1.7,
+ "fit_width": "outer_diameter_mm",
+ "length_to_width": 1.4,
+ "stone_width_mm": 8.568,
+ "stone_length_mm": 11.9952,
+ "depth_mm": 5.3122,
+ "head_width_mm": 9.0431,
+ "anchor_points": [
+  [
+   122,
+   432
+  ],
+  [
+   646,
+   432
+  ]
+ ],
+ "inner_edge_px": [
+  [
+   121.7,
+   432.19
+  ],
+  [
+   646.3,
+   432.19
+  ]
+ ],
+ "outer_edge_px": [
+  [
+   69.25,
+   432.19
+  ],
+  [
+   698.75,
+   432.19
+  ]
+ ],
+ "stone_px": [
+  [
+   251.81,
+   281.59
+  ],
+  [
+   516.19,
+   281.59
+  ]
+ ],
+ "px_per_mm": 30.85853,
+ "camera": {
+  "type": "orthographic",
+  "elevation_deg": 70.0
+ }
+}
