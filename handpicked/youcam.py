@@ -69,8 +69,10 @@ class Ledger:
 class YouCam:
     def __init__(self, api_key: str | None, cache_dir: Path, ledger: Ledger, base: str = BASE,
                  transport: httpx.AsyncBaseTransport | None = None, poll_every: float = 1.2, timeout: float = 90.0,
-                 recordings: Path | None = None):
+                 recordings: Path | None = None, credit_floor: int = 0):
         self.key, self.base, self.ledger = api_key, base, ledger
+        self.credit_floor = credit_floor
+        self._credit: tuple[float, float | None] = (0.0, None)
         self.cache_dir, self.recordings = cache_dir, recordings
         cache_dir.mkdir(parents=True, exist_ok=True)
         self.poll_every, self.timeout = poll_every, timeout
@@ -150,6 +152,11 @@ class YouCam:
         feature = "2d-vto/ring"
         units = UNITS["2d-vto/ring:stacked" if len(refs) > 1 else "2d-vto/ring"]
         self.ledger.check(session, units)
+        if self.credit_floor:
+            left = await self.credit_cached()
+            if left is not None and left - units < self.credit_floor:
+                raise CapReached("credit_floor", "The live try-on budget for this demo is used up; the recorded sessions "
+                                                 "still play.")
         t0 = time.time()
         async with self._client() as client:
             hid = await self.upload(client, hand, "hand.jpg")
@@ -184,6 +191,17 @@ class YouCam:
         (self.cache_dir / f"{key}.json").write_text(json.dumps({"task_id": tid, "seconds": secs, "params": params}),
                                                    encoding="utf-8")
         return TaskResult(tid, img, secs, units, False)
+
+    async def credit_cached(self, max_age: float = 300.0) -> float | None:
+        """Units left on the account, read at most every `max_age` seconds; None when it cannot be read."""
+        t, value = self._credit
+        if time.time() - t > max_age:
+            try:
+                value = await self.credit()
+            except YouCamError:
+                value = None
+            self._credit = (time.time(), value)
+        return value
 
     async def credit(self) -> float:
         async with self._client() as client:

@@ -1,0 +1,10 @@
+# Runtime, pinned to the versions the tests and the evidence ran on (Python 3.12).
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+httpx==0.28.1
+pydantic==2.14.1
+numpy==2.5.4
+opencv-python-headless==5.0.0.93
+pillow==13.0.0
+mediapipe==1.1.1
+python-multipart==0.0.32

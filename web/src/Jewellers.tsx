@@ -3,7 +3,7 @@ import { api, money, SHAPE_NAMES, type Hand, type MerchantResult, type Offer, ty
 
 const SHAPES = ["round", "oval", "cushion", "emerald", "pear", "princess", "radiant", "marquise"];
 
-export function listingText(o: Offer): string {
+function listingText(o: Offer): string {
   const origin = o.origin ? o.origin.charAt(0).toUpperCase() + o.origin.slice(1) + " " : "";
   const grade = [o.colour && `Colour ${o.colour}`, o.clarity && `clarity ${o.clarity}`].filter(Boolean).join(", ");
   return [`${origin}${o.shape} diamond, ${o.carat.toFixed(2)} ct`,

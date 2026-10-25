@@ -44,14 +44,14 @@ class Handpicked:
                                      lambda: metrology.MediaPipeHands(str(s.assets / "models" / "hand_landmarker.task")))
         self.library = library.RingLibrary(s.assets / "rings")
         self.ledger = youcam.Ledger(s.var / "units.jsonl", s.day_units, s.session_units)
-        self.youcam = youcam.YouCam(s.youcam_key, s.var / "tryon", self.ledger, recordings=s.assets / "tryon")
+        self.youcam = youcam.YouCam(s.youcam_key, s.var / "tryon", self.ledger, recordings=s.assets / "tryon",
+                                    credit_floor=s.unit_floor)
         self.budget = llm.TokenBudget(s.var / "tokens.jsonl", s.day_tokens)
         self.model = llm.DashScope(s.dashscope_key, self.budget, s.model) if s.dashscope_key else None
         self.llm_cache = s.var / "llm"
         self.llm_cache.mkdir(parents=True, exist_ok=True)
         inv = s.assets / "inventory.json"
         self.inventory = json.loads(inv.read_text(encoding="utf-8")) if inv.exists() else {"stones": []}
-        self._credit = (0.0, None)
 
     def close(self):
         self.hands.close()
@@ -240,21 +240,12 @@ class Handpicked:
             "source": self.inventory.get("source")}
 
     async def status(self) -> dict:
-        credit = None
-        if self.youcam.live:
-            t, value = self._credit
-            if time.time() - t > 300:
-                try:
-                    value = await self.youcam.credit()
-                    self._credit = (time.time(), value)
-                except youcam.YouCamError:
-                    value = None
-            credit = value
+        credit = await self.youcam.credit_cached() if self.youcam.live else None
         rows = self.ledger._rows()
         ok = [r for r in rows if r["ok"]]
         return {"mode": "live" if self.youcam.live else "replay", "model": self.s.model if self.model else None,
                 "units_left": credit, "units_today": self.ledger.spent(),
-                "day_cap": self.s.day_units, "session_cap": self.s.session_units,
+                "day_cap": self.s.day_units, "session_cap": self.s.session_units, "unit_floor": self.s.unit_floor,
                 "calls": len(ok), "median_seconds": float(np.median([r["seconds"] for r in ok])) if ok else None,
                 "tokens_today": self.budget.used(), "token_cap": self.s.day_tokens,
                 "calibration": self.s.calibration, "library": sum(len(v) for v in self.library.items.values())}

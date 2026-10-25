@@ -1,0 +1,17 @@
+.git
+.venv
+.pytest_cache
+.ruff_cache
+**/__pycache__
+var
+web/node_modules
+web/dist
+web/test-results
+web/playwright-report
+assets/rings_marker
+eval/listings
+tests
+tools
+docs
+*.env
+.secrets

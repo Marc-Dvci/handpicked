@@ -9,6 +9,7 @@
 | `HANDPICKED_DAY_UNITS` | 120 | YouCam units the server may spend in 24 h |
 | `HANDPICKED_SESSION_UNITS` | 8 | YouCam units one browser session may spend |
 | `HANDPICKED_DAY_TOKENS` | 60000 | Model tokens the server may spend in 24 h |
+| `HANDPICKED_UNIT_FLOOR` | 0 | Live try-ons stop when the YouCam account would fall below this many units |
 | `HANDPICKED_ENV_FILE` | unset | Optional `KEY=value` files (separated by `;`) read before the variables above |
 """
 from __future__ import annotations
@@ -44,6 +45,7 @@ class Settings:
     session_units: int
     day_tokens: int
     calibration: dict
+    unit_floor: int = 0
 
 
 def load() -> Settings:
@@ -62,4 +64,5 @@ def load() -> Settings:
         session_units=int(os.environ.get("HANDPICKED_SESSION_UNITS", 8)),
         day_tokens=int(os.environ.get("HANDPICKED_DAY_TOKENS", 60000)),
         calibration=cal,
+        unit_floor=int(os.environ.get("HANDPICKED_UNIT_FLOOR", 0)),
     )
