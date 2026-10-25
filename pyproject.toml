@@ -1,0 +1,39 @@
+[project]
+name = "handpicked"
+version = "1.0.0"
+description = "Which diamond looks biggest on your hand: measured finger, read listings, size-true YouCam Ring VTO."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Marc Donovici" }]
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "httpx>=0.27",
+  "pydantic>=2.7",
+  "numpy>=2.0",
+  "opencv-python-headless>=4.10",
+  "pillow>=10.4",
+  "mediapipe>=0.10.14",
+  "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 140
+target-version = "py312"
+extend-exclude = ["web", "tools/render_rings.py", "tools/render_bench.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E741", "B905", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"handpicked/listing.py" = ["E501"]
+"eval/listings/build_corpus.py" = ["E501"]
