@@ -141,7 +141,7 @@ test("jewellers: rank, filter, open a stone on the hand, embed", async ({ page }
 test("evidence: every result and its command", async ({ page }) => {
   await page.goto("/#/evidence");
   for (const id of ["E1", "E3", "E4", "SA"]) await expect(page.locator(`#ev-${id}`)).toBeVisible();
-  await expect(page.locator(".ev code").first()).toContainText("python eval/");
+  await expect(page.locator(".ev code.cmd").first()).toContainText("python eval/");
   await axe(page, "evidence");
   await page.screenshot({ path: `${SHOTS}/07-evidence.png`, fullPage: true });
 });

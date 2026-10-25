@@ -375,7 +375,7 @@ function Upload({ busy, onFile }: { busy: boolean; onFile: (f: File) => void }) 
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         This is my hand, or its owner agreed
       </label>
-      <input ref={input} id="upload" type="file" accept="image/jpeg,image/png,image/webp" className="visually-hidden"
+      <input ref={input} id="upload" type="file" accept="image/jpeg,image/png,image/webp" className="visually-hidden" aria-label="Hand photo" tabIndex={-1}
         onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); e.target.value = ""; }} />
       <button type="button" className="btn ghost" disabled={!consent || busy} onClick={() => input.current?.click()}>
         {busy ? "Measuring…" : "Upload a photo"}
@@ -435,7 +435,7 @@ function BoardView({ board }: { board: Board }) {
   const v = board.verdict;
   return (
     <div aria-live="polite">
-      <div className="board-wrap">
+      <div className="board-wrap" tabIndex={0} role="region" aria-label="Comparison board">
         <table className="board">
           <caption className="visually-hidden">Stones ranked by price per face-up square millimetre on a finger {board.finger_mm.toFixed(2)} mm wide</caption>
           <thead>

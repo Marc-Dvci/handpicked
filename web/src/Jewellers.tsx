@@ -110,7 +110,7 @@ export default function Jewellers({ samples, hand, active }: { samples: Samples 
           </p>
         )}
         {result && result.offers.length > 0 && (
-          <div className="board-wrap">
+          <div className="board-wrap" tabIndex={0} role="region" aria-label="Ranked stock">
             <table className="board">
               <thead>
                 <tr>

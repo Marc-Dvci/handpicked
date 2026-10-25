@@ -18,7 +18,7 @@ function Ev({ no, title, children, cmd }: { no: string; title: string; children:
       <div>
         <h3 id={`ev-${no}`}>{title}</h3>
         {children}
-        <code>$ {cmd}</code>
+        <code className="cmd">$ {cmd}</code>
       </div>
     </section>
   );
