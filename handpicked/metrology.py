@@ -29,8 +29,8 @@ FINGER_DEPTH_RATIO = 0.95   # finger depth / width at the proximal ring-finger j
 DEFAULT_FOCAL_35MM = 26.0   # typical phone main camera when the photo carries no EXIF focal length
 
 GAP_MM = 0.8                # paper must follow an edge for this long
-LOCAL_MM = 3.0              # paper level beside an edge is read within this distance
-REFINE_MM = 1.5             # how far inward that local level may move an edge
+SEARCH_PAST_MM = 1.0        # the steepest-drop search runs this far past the midpoint crossing
+DROP_PER_MM = 4.0           # an edge falls at least this fast in chroma per mm
 MIN_WIDTH_MM, MAX_WIDTH_MM = 9.0, 26.0
 WINDOW = 7                  # profiles in the ring-position window, 2% of the MCP-PIP span apart
 
@@ -293,64 +293,58 @@ def _paper_chroma(chroma: np.ndarray, margin: float) -> float:
 
 
 def _profile_width(chroma, centre_mm, normal, margin, paper, half_len_mm=16.0, step_mm=0.05):
-    """Width (mm) of the skin run that contains the centre, along `normal`, or None.
+    """Width (mm) of the finger across `normal` at `centre_mm`, or None.
 
-    An edge is where chroma falls below the midpoint between the finger and bare paper and stays below it for
-    GAP_MM, so a crease or a fleck of shadow inside the finger is walked past. A run wider than MAX_WIDTH_MM is
-    the finger still joined to its neighbour by the web of skin, and is refused."""
+    Each edge is where chroma falls fastest going outward from the finger: the skin-to-paper step is sharp, while
+    the tint that skin reflects onto the paper next to it, and the shading across the finger, change slowly. The
+    search on each side ends a little past the first point where chroma reaches the midpoint between the finger and
+    bare paper, so the next finger is never reached. A run wider than MAX_WIDTH_MM is the finger still joined to its
+    neighbour by the web of skin, and is refused."""
     ts = np.arange(-half_len_mm, half_len_mm + step_mm / 2, step_mm)
     xs = (centre_mm[0] + margin + ts * normal[0]) * PX_PER_MM
     ys = (centre_mm[1] + margin + ts * normal[1]) * PX_PER_MM
-    c = cv2.remap(chroma, xs.astype(np.float32).reshape(1, -1), ys.astype(np.float32).reshape(1, -1),
-                  cv2.INTER_LINEAR).ravel()
+    raw = cv2.remap(chroma, xs.astype(np.float32).reshape(1, -1), ys.astype(np.float32).reshape(1, -1),
+                    cv2.INTER_LINEAR).ravel()
+    c = cv2.GaussianBlur(raw.reshape(1, -1).astype(np.float32), (0, 0), sigmaX=2.0).ravel()
     i0 = len(ts) // 2
     skin = float(np.median(c[i0 - 8:i0 + 9]))
     if skin - paper < 6.0:
         return None
     level = (skin + paper) / 2.0
     hold = int(GAP_MM / step_mm)
+    pad = int(SEARCH_PAST_MM / step_mm)
+    grad = np.gradient(c, step_mm)
 
     def edge(direction):
-        i = i0
+        # outer end of the search: first point past the midpoint level that stays below it, plus a margin
+        i, stop = i0, None
         while 0 < i < len(ts) - 1:
             j = i + direction
             if c[j] < level <= c[i]:
                 after = c[j:j + direction * hold:direction] if direction > 0 else c[max(0, j - hold):j + 1]
                 if len(after) >= hold // 2 and float(np.mean(after)) < level:
-                    frac = (c[i] - level) / (c[i] - c[j])
-                    return ts[i] + direction * frac * step_mm
+                    stop = j
+                    break
             i = j
-        return None
+        if stop is None:
+            return None
+        stop = min(max(stop + direction * pad, 1), len(ts) - 2)
+        lo, hi = (stop, i0) if direction < 0 else (i0, stop)
+        seg = grad[lo:hi + 1] * direction            # outward slope; the edge is its most negative point
+        k = int(np.argmin(seg))
+        if seg[k] > -DROP_PER_MM:
+            return None
+        if 0 < k < len(seg) - 1:                    # parabola through the three samples around the minimum
+            a, b, cc = seg[k - 1], seg[k], seg[k + 1]
+            den = a - 2 * b + cc
+            frac = 0.5 * (a - cc) / den if den != 0 else 0.0
+        else:
+            frac = 0.0
+        return float(ts[lo + k] + frac * step_mm)
 
     left, right = edge(-1), edge(+1)
     if left is None or right is None:
         return None
-    # skin tints the paper next to it; read the paper level within LOCAL_MM beyond each edge and place the edge
-    # again at the midpoint between the finger and that local paper
-    sides = []
-    for side, direction in ((left, -1), (right, +1)):
-        i_edge = int(round((side - ts[0]) / step_mm))
-        span = int(LOCAL_MM / step_mm)
-        lo, hi = (max(0, i_edge - span), i_edge) if direction < 0 else (i_edge, min(len(ts), i_edge + span))
-        local = float(np.min(np.convolve(c[lo:hi], np.ones(5) / 5, mode="valid"))) if hi - lo > 6 else paper
-        level_side = (skin + max(paper, local)) / 2.0
-        found = side
-        if skin - local >= 6.0:
-            # the tint only shifts the edge outward, by up to REFINE_MM: search from that far inside it
-            i = int(round((side - direction * REFINE_MM - ts[0]) / step_mm))
-            i = min(max(i, 1), len(ts) - 2) if direction > 0 else max(min(i, len(ts) - 2), 1)
-            if (i - i0) * direction < 0:
-                i = i0
-            while 0 < i < len(ts) - 1 and (ts[i] - side) * direction <= step_mm:
-                j = i + direction
-                if c[j] < level_side <= c[i]:
-                    after = c[j:j + direction * hold:direction] if direction > 0 else c[max(0, j - hold):j + 1]
-                    if len(after) >= hold // 2 and float(np.mean(after)) < level_side:
-                        found = ts[i] + direction * (c[i] - level_side) / (c[i] - c[j]) * step_mm
-                        break
-                i = j
-        sides.append(found)
-    left, right = sides
     w = right - left
     if not MIN_WIDTH_MM <= w <= MAX_WIDTH_MM:
         return None
