@@ -56,6 +56,16 @@ class Handpicked:
     def close(self):
         self.hands.close()
 
+    def expire(self) -> int:
+        """Delete uploads, and live renders (which show the uploaded hand), older than the store's 24 h."""
+        n = self.hands.expire()
+        now = time.time()
+        for f in (self.s.var / "tryon").glob("*"):
+            if f.is_file() and now - f.stat().st_mtime > self.hands.ttl:
+                f.unlink()
+                n += 1
+        return n
+
     # ------------------------------------------------------------------ model calls, cached on disk
     async def _cached(self, kind: str, payload: str, call):
         key = hashlib.sha256(f"{kind}|{self.s.model}|{payload}".encode()).hexdigest()[:24]

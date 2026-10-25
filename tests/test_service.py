@@ -65,3 +65,21 @@ def test_render_without_a_readable_band_is_not_retried(svc, monkeypatch):
     monkeypatch.setattr(svc, "_audit", lambda *a: {"band_fit": None, "expected_ratio": None, "error_pct": None, "passed": False})
     asyncio.run(svc.tryon("hand-1", "oval", 5.62, "platinum", False, "s"))
     assert len(calls) == 1
+
+
+def test_uploads_and_their_renders_expire_after_a_day(svc):
+    import os
+    import time
+    old = time.time() - 25 * 3600
+    up = svc.s.var / "hands" / "u0000000000000000"
+    up.mkdir(parents=True)
+    (up / "hand.json").write_text("{}", encoding="utf-8")
+    (up / "photo.jpg").write_bytes(b"jpeg")
+    render = svc.s.var / "tryon" / "abc.jpg"
+    render.write_bytes(b"jpeg")
+    fresh = svc.s.var / "tryon" / "new.jpg"
+    fresh.write_bytes(b"jpeg")
+    for f in (up / "hand.json", render):
+        os.utime(f, (old, old))
+    assert svc.expire() == 2
+    assert not up.exists() and not render.exists() and fresh.exists()

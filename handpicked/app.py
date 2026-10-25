@@ -79,6 +79,7 @@ async def upload_hand(file: UploadFile = File(...)):
     data = await file.read(MAX_UPLOAD + 1)
     if len(data) > MAX_UPLOAD:
         _err(413, "too_large", "The photo is larger than 15 MB.")
+    await asyncio.to_thread(svc().expire)
     try:
         hand = await asyncio.to_thread(svc().hands.add, data)
     except metrology.MeasureError as e:

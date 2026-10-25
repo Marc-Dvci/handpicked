@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1000" width="1500" height="1000" font-family="IBM Plex Sans, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#15171c"/>
+    </marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1d46c4"/>
+    </marker>
+    <style>
+      .t { font-size: 19px; fill: #15171c; }
+      .s { font-size: 15px; fill: #474c57; }
+      .f { font-family: IBM Plex Mono, Consolas, monospace; font-size: 13px; fill: #6b707b; }
+      .h { font-family: Newsreader, Georgia, serif; font-size: 26px; fill: #15171c; }
+      .k { font-size: 13px; letter-spacing: 2px; fill: #6b707b; }
+      .box { fill: #fff; stroke: #15171c; stroke-width: 1.4; }
+      .l { stroke: #15171c; stroke-width: 1.4; fill: none; marker-end: url(#a); }
+      .lb { stroke: #1d46c4; stroke-width: 1.8; fill: none; marker-end: url(#b); }
+    </style>
+  </defs>
+  <rect width="1500" height="1000" fill="#fff"/>
+
+  <!-- inputs -->
+  <text class="k" x="40" y="60">SHOPPER</text>
+  <rect class="box" x="40" y="80" width="230" height="86"/>
+  <text class="t" x="58" y="115">Hand photo</text>
+  <text class="s" x="58" y="142">back of the hand on A4</text>
+  <rect class="box" x="40" y="420" width="230" height="86"/>
+  <text class="t" x="58" y="455">2 to 4 listings</text>
+  <text class="s" x="58" y="482">as the seller wrote them</text>
+
+  <!-- code boundary -->
+  <rect x="320" y="40" width="760" height="920" fill="none" stroke="#15171c" stroke-width="2"/>
+  <text class="k" x="340" y="70">CODE · EVERY NUMBER, RANKING, SIZE AND CHECK</text>
+
+  <rect class="box" x="345" y="85" width="330" height="110"/>
+  <text class="t" x="363" y="118">Finger metrology</text>
+  <text class="s" x="363" y="144">sheet → camera pose → edges at the</text>
+  <text class="s" x="363" y="164">steepest colour drop → parallax-corrected</text>
+  <text class="f" x="363" y="186">metrology.py · fit.py</text>
+
+  <rect class="box" x="725" y="85" width="330" height="110"/>
+  <text class="t" x="743" y="118">Ring library choice</text>
+  <text class="s" x="743" y="144">432 dimension-exact renders; ratio =</text>
+  <text class="s" x="743" y="164">stone ÷ finger ÷ (c_shape × band fit)</text>
+  <text class="f" x="743" y="186">library.py · assets/rings</text>
+
+  <rect class="box" x="725" y="265" width="330" height="110"/>
+  <text class="t" x="743" y="298">Render audit</text>
+  <text class="s" x="743" y="324">band width read in every render; ±5%</text>
+  <text class="s" x="743" y="344">else one corrected re-render</text>
+  <text class="f" x="743" y="366">audit.py · service.py</text>
+
+  <rect class="box" x="345" y="265" width="330" height="110"/>
+  <text class="t" x="363" y="298">Spending caps</text>
+  <text class="s" x="363" y="324">units per day and per session; live</text>
+  <text class="s" x="363" y="344">calls stop at a credit floor</text>
+  <text class="f" x="363" y="366">youcam.py</text>
+
+  <rect class="box" x="345" y="420" width="330" height="110"/>
+  <text class="t" x="363" y="453">Listing rules</text>
+  <text class="s" x="363" y="479">each value with its source span;</text>
+  <text class="s" x="363" y="499">injections masked; non-diamonds wait</text>
+  <text class="f" x="363" y="521">listing.py</text>
+
+  <rect class="box" x="345" y="590" width="330" height="110"/>
+  <text class="t" x="363" y="623">Grounding check</text>
+  <text class="s" x="363" y="649">a model value is kept only if its quote</text>
+  <text class="s" x="363" y="669">is in the listing and states that value</text>
+  <text class="f" x="363" y="691">listing.ground_model_fields</text>
+
+  <rect class="box" x="345" y="760" width="330" height="110"/>
+  <text class="t" x="363" y="793">Board</text>
+  <text class="s" x="363" y="819">face-up mm², price per mm², look-alike</text>
+  <text class="s" x="363" y="839">stones, weight check; template verdict</text>
+  <text class="f" x="363" y="861">compare.py · gems.py</text>
+
+  <rect class="box" x="725" y="760" width="330" height="110"/>
+  <text class="t" x="743" y="793">Number check</text>
+  <text class="s" x="743" y="819">reworded verdict shown only if it keeps</text>
+  <text class="s" x="743" y="839">every number and adds none</text>
+  <text class="f" x="743" y="861">llm.keeps_numbers · numbers_grounded</text>
+
+  <!-- sponsor -->
+  <rect x="1130" y="85" width="330" height="290" fill="#e9eefb" stroke="#1d46c4" stroke-width="2"/>
+  <text class="k" x="1150" y="115" style="fill:#1d46c4">PERFECT CORP</text>
+  <text class="h" x="1150" y="155">YouCam Ring</text>
+  <text class="h" x="1150" y="187">Virtual Try-On API</text>
+  <text class="s" x="1150" y="225">File API upload of the hand and</text>
+  <text class="s" x="1150" y="246">the chosen ring render, task,</text>
+  <text class="s" x="1150" y="267">poll; about 4.6 s and 1 unit</text>
+  <text class="s" x="1150" y="300">every render comes back to the</text>
+  <text class="s" x="1150" y="321">audit before it is shown</text>
+  <text class="f" x="1150" y="355">POST /s2s/v2.0/task/2d-vto/ring</text>
+
+  <!-- model -->
+  <rect x="1130" y="560" width="330" height="200" fill="#fff" stroke="#15171c" stroke-width="1.4" stroke-dasharray="7 5"/>
+  <text class="k" x="1150" y="590">MODEL · PROPOSES AND PHRASES</text>
+  <text class="h" x="1150" y="628">Alibaba Cloud</text>
+  <text class="h" x="1150" y="660">Model Studio</text>
+  <text class="s" x="1150" y="695">reads the gaps the rules left in</text>
+  <text class="s" x="1150" y="716">listing text; rewords the verdict</text>
+  <text class="s" x="1150" y="745" style="fill:#9a3f0c">text only: photos never reach it</text>
+
+  <!-- output -->
+  <rect x="1130" y="830" width="330" height="110" fill="#fff" stroke="#15171c" stroke-width="2.4"/>
+  <text class="t" x="1150" y="866">Board, try-ons on the hand,</text>
+  <text class="t" x="1150" y="892">decision card, seller questions</text>
+  <text class="f" x="1150" y="920">web (React) · app.py (FastAPI)</text>
+
+  <!-- arrows: photo path -->
+  <path class="l" d="M270 123 H343"/>
+  <path class="l" d="M675 140 H723"/>
+  <path class="lb" d="M1055 140 H1128"/>
+  <path class="lb" d="M1128 320 H1057"/>
+  <path class="l" d="M890 375 V430 H1100 V860 H1128"/>
+  <!-- arrows: listing path -->
+  <path class="l" d="M270 463 H343"/>
+  <path class="l" d="M675 475 H1000 V600 H1128"/>
+  <text class="s" x="760" y="465">fields the rules left empty</text>
+  <path class="l" d="M1128 680 H700 V645 H677"/>
+  <text class="s" x="760" y="672">value + quote</text>
+  <path class="l" d="M510 700 V758"/>
+  <path class="l" d="M510 530 V588"/>
+  <path class="l" d="M675 790 H700 V740 H1060 V700 H1128" stroke-dasharray="4 4"/>
+  <text class="s" x="760" y="732">facts + template</text>
+  <path class="l" d="M1295 760 V770 H890 V758" stroke-dasharray="4 4"/>
+  <path class="l" d="M1055 815 H1100 V885 H1128"/>
+</svg>

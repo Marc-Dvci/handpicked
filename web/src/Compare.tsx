@@ -138,7 +138,7 @@ export default function Compare({ samples, hand, setHand, status, evidence, onSp
       {/* ------------------------------------------------------------------ 01 hand */}
       <section className="step" id="step-1" aria-labelledby="h-1">
         <StepHead no="01" id="h-1" title="Your hand"
-          text="Choose a sample hand, or photograph the back of your own hand lying flat on a sheet of A4 or US Letter paper." />
+          text="Choose a sample hand, or photograph the back of your own hand lying flat on a sheet of A4 paper." />
         <div className="hands" role="group" aria-label="Sample hands">
           {samples?.hands.map((h, i) => (
             <button key={h.id} type="button" className="hand-pick" aria-pressed={hand?.id === h.id} onClick={() => setHand(h)}>
