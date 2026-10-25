@@ -32,8 +32,8 @@ for name in youcam-api-key dashscope-api-key; do
 done
 
 gcloud builds submit --tag "$IMAGE" .
-sed "s#IMAGE#$IMAGE#" deploy/service.yaml > /tmp/handpicked-service.yaml
-gcloud run services replace /tmp/handpicked-service.yaml --region "$REGION"
+sed "s#IMAGE#$IMAGE#" deploy/service.yaml > deploy/.rendered.yaml
+gcloud run services replace deploy/.rendered.yaml --region "$REGION"
 gcloud run services add-iam-policy-binding handpicked --region "$REGION" --member allUsers --role roles/run.invoker >/dev/null
 URL=$(gcloud run services describe handpicked --region "$REGION" --format 'value(status.url)')
 
