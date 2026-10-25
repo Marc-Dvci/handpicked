@@ -3,7 +3,7 @@
 Every listing is written below as data, one R(...) call each. Running the script checks the
 composition and the label rules, then writes corpus.jsonl beside this file:
 
-    D:/Devpost/Youcam/handpicked/.venv/Scripts/python.exe D:/Devpost/Youcam/handpicked/eval/listings/build_corpus.py
+    python eval/listings/build_corpus.py
 
 It does not call the parser or the network.
 """
