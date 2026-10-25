@@ -1,0 +1,525 @@
+{
+  "title": "Ring size conversion: US/Canada, UK/AU/IE, EU (ISO 8653), inner circumference and diameter",
+  "generated": "2026-10-24",
+  "scale_note": "One scale covers women's and men's sizes; none of the fetched sources gives a separate sex-specific scale.",
+  "iso8653_description": {
+    "quote": "ISO 8653:2016 defines standard ring sizes in terms of the inner circumference of the ring measured in millimeters.",
+    "source": "Wikipedia, Ring size",
+    "url": "https://en.wikipedia.org/wiki/Ring_size"
+  },
+  "iso8653_standard_page": {
+    "url": "https://www.iso.org/standard/65408.html",
+    "note": "Search snippet only (ISO page raw fetch returned a 5.7 KB stub): second edition, published January 2016; ISO/TC 174. Not quote-checked."
+  },
+  "us_formulas": {
+    "quote_circumference": "ISO 8653 circumference C = 2.55 x s + 36.5 (quote: '2.55\\times s_{NA}+36.5')",
+    "quote_diameter": "d = 0.8128 x s + 11.63 (quote: '0.8128\\times s_{NA}+11.63')",
+    "quote_increment": "whole sizes differ by 0.032 inches (0.81 mm) of internal diameter, equivalent to 0.1005 inches (2.55 mm) of internal circumference",
+    "source": "Wikipedia, Ring size (raw HTML)",
+    "url": "https://en.wikipedia.org/wiki/Ring_size"
+  },
+  "eu_rule": "EU/ISO size = inner circumference in mm, rounded to the nearest whole mm (ties rounded up in the sources checked: 59.5 -> 60 in Aquamarise).",
+  "sources": {
+    "wiki": {
+      "name": "Wikipedia - Ring size (table of US, UK, ISO circumference, inside diameter)",
+      "url": "https://en.wikipedia.org/wiki/Ring_size",
+      "access": "raw HTML parsed"
+    },
+    "aquamarise": {
+      "name": "Aquamarise - Ring size chart (jeweller table, mm columns)",
+      "url": "https://aquamarise.com/blogs/journal/ring-size-chart",
+      "access": "raw HTML parsed"
+    },
+    "timi": {
+      "name": "Timi of Sweden - Ring size guide (jeweller table, mm columns)",
+      "url": "https://www.timiofsweden.com/pages/ringmaat-gids",
+      "access": "raw HTML parsed"
+    }
+  },
+  "rows": [
+    {
+      "us": 3.0,
+      "canada": 3.0,
+      "uk_au_letter": "F",
+      "iso8653_circumference_mm": 44.2,
+      "eu_iso_size": 44,
+      "inner_diameter_mm": 14.07,
+      "diameter_check_circ_over_pi_mm": 14.07
+    },
+    {
+      "us": 3.5,
+      "canada": 3.5,
+      "uk_au_letter": "G",
+      "iso8653_circumference_mm": 45.5,
+      "eu_iso_size": 46,
+      "inner_diameter_mm": 14.48,
+      "diameter_check_circ_over_pi_mm": 14.48
+    },
+    {
+      "us": 4.0,
+      "canada": 4.0,
+      "uk_au_letter": "H",
+      "iso8653_circumference_mm": 46.8,
+      "eu_iso_size": 47,
+      "inner_diameter_mm": 14.88,
+      "diameter_check_circ_over_pi_mm": 14.9,
+      "aquamarise": {
+        "diameter_mm": 14.9,
+        "circumference_mm": 46.8,
+        "uk_au_letter": "H½",
+        "eu": 47,
+        "diff_diameter_mm_vs_wiki": 0.02,
+        "letter_agrees_with_wiki": false,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 4.5,
+      "canada": 4.5,
+      "uk_au_letter": "I",
+      "iso8653_circumference_mm": 48.0,
+      "eu_iso_size": 48,
+      "inner_diameter_mm": 15.29,
+      "diameter_check_circ_over_pi_mm": 15.28,
+      "aquamarise": {
+        "diameter_mm": 15.3,
+        "circumference_mm": 48.0,
+        "uk_au_letter": "I½",
+        "eu": 48,
+        "diff_diameter_mm_vs_wiki": 0.01,
+        "letter_agrees_with_wiki": false,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 5.0,
+      "canada": 5.0,
+      "uk_au_letter": "J½",
+      "iso8653_circumference_mm": 49.3,
+      "eu_iso_size": 49,
+      "inner_diameter_mm": 15.7,
+      "diameter_check_circ_over_pi_mm": 15.69,
+      "aquamarise": {
+        "diameter_mm": 15.7,
+        "circumference_mm": 49.3,
+        "uk_au_letter": "J½",
+        "eu": 49,
+        "diff_diameter_mm_vs_wiki": 0.0,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 5.5,
+      "canada": 5.5,
+      "uk_au_letter": "K½",
+      "iso8653_circumference_mm": 50.6,
+      "eu_iso_size": 51,
+      "inner_diameter_mm": 16.1,
+      "diameter_check_circ_over_pi_mm": 16.11,
+      "aquamarise": {
+        "diameter_mm": 16.1,
+        "circumference_mm": 50.6,
+        "uk_au_letter": "K½",
+        "eu": 51,
+        "diff_diameter_mm_vs_wiki": 0.0,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 6.0,
+      "canada": 6.0,
+      "uk_au_letter": "L½",
+      "iso8653_circumference_mm": 51.9,
+      "eu_iso_size": 52,
+      "inner_diameter_mm": 16.51,
+      "diameter_check_circ_over_pi_mm": 16.52,
+      "aquamarise": {
+        "diameter_mm": 16.5,
+        "circumference_mm": 51.9,
+        "uk_au_letter": "L½",
+        "eu": 52,
+        "diff_diameter_mm_vs_wiki": -0.01,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 6.5,
+      "canada": 6.5,
+      "uk_au_letter": "M½",
+      "iso8653_circumference_mm": 53.1,
+      "eu_iso_size": 53,
+      "inner_diameter_mm": 16.92,
+      "diameter_check_circ_over_pi_mm": 16.9,
+      "aquamarise": {
+        "diameter_mm": 16.9,
+        "circumference_mm": 53.1,
+        "uk_au_letter": "M½",
+        "eu": 53,
+        "diff_diameter_mm_vs_wiki": -0.02,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 7.0,
+      "canada": 7.0,
+      "uk_au_letter": "N½",
+      "iso8653_circumference_mm": 54.4,
+      "eu_iso_size": 54,
+      "inner_diameter_mm": 17.32,
+      "diameter_check_circ_over_pi_mm": 17.32,
+      "aquamarise": {
+        "diameter_mm": 17.3,
+        "circumference_mm": 54.4,
+        "uk_au_letter": "N½",
+        "eu": 54,
+        "diff_diameter_mm_vs_wiki": -0.02,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 7.5,
+      "canada": 7.5,
+      "uk_au_letter": "O½",
+      "iso8653_circumference_mm": 55.7,
+      "eu_iso_size": 56,
+      "inner_diameter_mm": 17.73,
+      "diameter_check_circ_over_pi_mm": 17.73,
+      "aquamarise": {
+        "diameter_mm": 17.7,
+        "circumference_mm": 55.7,
+        "uk_au_letter": "O½",
+        "eu": 56,
+        "diff_diameter_mm_vs_wiki": -0.03,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 8.0,
+      "canada": 8.0,
+      "uk_au_letter": "P½",
+      "iso8653_circumference_mm": 57.0,
+      "eu_iso_size": 57,
+      "inner_diameter_mm": 18.14,
+      "diameter_check_circ_over_pi_mm": 18.14,
+      "aquamarise": {
+        "diameter_mm": 18.1,
+        "circumference_mm": 57.0,
+        "uk_au_letter": "P½",
+        "eu": 57,
+        "diff_diameter_mm_vs_wiki": -0.04,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 8.5,
+      "canada": 8.5,
+      "uk_au_letter": "Q¼",
+      "iso8653_circumference_mm": 58.3,
+      "eu_iso_size": 58,
+      "inner_diameter_mm": 18.54,
+      "diameter_check_circ_over_pi_mm": 18.56,
+      "aquamarise": {
+        "diameter_mm": 18.5,
+        "circumference_mm": 58.3,
+        "uk_au_letter": "Q½",
+        "eu": 58,
+        "diff_diameter_mm_vs_wiki": -0.04,
+        "letter_agrees_with_wiki": false,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 9.0,
+      "canada": 9.0,
+      "uk_au_letter": "R½",
+      "iso8653_circumference_mm": 59.5,
+      "eu_iso_size": 60,
+      "inner_diameter_mm": 18.95,
+      "diameter_check_circ_over_pi_mm": 18.94,
+      "aquamarise": {
+        "diameter_mm": 18.9,
+        "circumference_mm": 59.5,
+        "uk_au_letter": "R½",
+        "eu": 60,
+        "diff_diameter_mm_vs_wiki": -0.05,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 9.5,
+      "canada": 9.5,
+      "uk_au_letter": "S½",
+      "iso8653_circumference_mm": 60.8,
+      "eu_iso_size": 61,
+      "inner_diameter_mm": 19.35,
+      "diameter_check_circ_over_pi_mm": 19.35,
+      "aquamarise": {
+        "diameter_mm": 19.4,
+        "circumference_mm": 60.8,
+        "uk_au_letter": "S½",
+        "eu": 61,
+        "diff_diameter_mm_vs_wiki": 0.05,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 10.0,
+      "canada": 10.0,
+      "uk_au_letter": "T½",
+      "iso8653_circumference_mm": 62.1,
+      "eu_iso_size": 62,
+      "inner_diameter_mm": 19.76,
+      "diameter_check_circ_over_pi_mm": 19.77,
+      "aquamarise": {
+        "diameter_mm": 19.8,
+        "circumference_mm": 62.1,
+        "uk_au_letter": "T½",
+        "eu": 62,
+        "diff_diameter_mm_vs_wiki": 0.04,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 10.5,
+      "canada": 10.5,
+      "uk_au_letter": "U½",
+      "iso8653_circumference_mm": 63.4,
+      "eu_iso_size": 63,
+      "inner_diameter_mm": 20.17,
+      "diameter_check_circ_over_pi_mm": 20.18,
+      "aquamarise": {
+        "diameter_mm": 20.2,
+        "circumference_mm": 63.4,
+        "uk_au_letter": "U½",
+        "eu": 63,
+        "diff_diameter_mm_vs_wiki": 0.03,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 11.0,
+      "canada": 11.0,
+      "uk_au_letter": "V½",
+      "iso8653_circumference_mm": 64.6,
+      "eu_iso_size": 65,
+      "inner_diameter_mm": 20.57,
+      "diameter_check_circ_over_pi_mm": 20.56,
+      "aquamarise": {
+        "diameter_mm": 20.6,
+        "circumference_mm": 64.6,
+        "uk_au_letter": "V½",
+        "eu": 65,
+        "diff_diameter_mm_vs_wiki": 0.03,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 11.5,
+      "canada": 11.5,
+      "uk_au_letter": "W½",
+      "iso8653_circumference_mm": 65.9,
+      "eu_iso_size": 66,
+      "inner_diameter_mm": 20.98,
+      "diameter_check_circ_over_pi_mm": 20.98,
+      "aquamarise": {
+        "diameter_mm": 21.0,
+        "circumference_mm": 65.9,
+        "uk_au_letter": "W½",
+        "eu": 66,
+        "diff_diameter_mm_vs_wiki": 0.02,
+        "letter_agrees_with_wiki": true,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 12.0,
+      "canada": 12.0,
+      "uk_au_letter": "X½",
+      "iso8653_circumference_mm": 67.2,
+      "eu_iso_size": 67,
+      "inner_diameter_mm": 21.39,
+      "diameter_check_circ_over_pi_mm": 21.39,
+      "aquamarise": {
+        "diameter_mm": 21.4,
+        "circumference_mm": 67.2,
+        "uk_au_letter": "Y",
+        "eu": 67,
+        "diff_diameter_mm_vs_wiki": 0.01,
+        "letter_agrees_with_wiki": false,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 12.5,
+      "canada": 12.5,
+      "uk_au_letter": "Y½",
+      "iso8653_circumference_mm": 68.5,
+      "eu_iso_size": 69,
+      "inner_diameter_mm": 21.79,
+      "diameter_check_circ_over_pi_mm": 21.8,
+      "aquamarise": {
+        "diameter_mm": 21.8,
+        "circumference_mm": 68.5,
+        "uk_au_letter": "Z",
+        "eu": 69,
+        "diff_diameter_mm_vs_wiki": 0.01,
+        "letter_agrees_with_wiki": false,
+        "eu_agrees_with_wiki": true
+      }
+    },
+    {
+      "us": 13.0,
+      "canada": 13.0,
+      "uk_au_letter": "Z½",
+      "iso8653_circumference_mm": 69.7,
+      "eu_iso_size": 70,
+      "inner_diameter_mm": 22.2,
+      "diameter_check_circ_over_pi_mm": 22.19,
+      "aquamarise": {
+        "diameter_mm": 22.2,
+        "circumference_mm": 69.7,
+        "uk_au_letter": "Z+1",
+        "eu": 70,
+        "diff_diameter_mm_vs_wiki": 0.0,
+        "letter_agrees_with_wiki": false,
+        "eu_agrees_with_wiki": true
+      }
+    }
+  ],
+  "jeweller_table_timi": [
+    {
+      "timi_circumference_mm": 50,
+      "timi_diameter_mm": 16.0,
+      "timi_us_as_printed": 5.5,
+      "timi_uk_as_printed": "K½",
+      "timi_eu": 50,
+      "wiki_for_same_us_size": {
+        "diameter_mm": 16.1,
+        "circumference_mm": 50.6,
+        "uk_au_letter": "K½"
+      },
+      "diff_diameter_mm_timi_minus_wiki": -0.1,
+      "abs_diff_gt_0_1_mm": false,
+      "uk_letter_agrees_with_wiki": true
+    },
+    {
+      "timi_circumference_mm": 53,
+      "timi_diameter_mm": 17.0,
+      "timi_us_as_printed": 6.5,
+      "timi_uk_as_printed": "N",
+      "timi_eu": 53,
+      "wiki_for_same_us_size": {
+        "diameter_mm": 16.92,
+        "circumference_mm": 53.1,
+        "uk_au_letter": "M½"
+      },
+      "diff_diameter_mm_timi_minus_wiki": 0.08,
+      "abs_diff_gt_0_1_mm": false,
+      "uk_letter_agrees_with_wiki": false
+    },
+    {
+      "timi_circumference_mm": 55,
+      "timi_diameter_mm": 17.5,
+      "timi_us_as_printed": 7.5,
+      "timi_uk_as_printed": "O",
+      "timi_eu": 55,
+      "wiki_for_same_us_size": {
+        "diameter_mm": 17.73,
+        "circumference_mm": 55.7,
+        "uk_au_letter": "O½"
+      },
+      "diff_diameter_mm_timi_minus_wiki": -0.23,
+      "abs_diff_gt_0_1_mm": true,
+      "uk_letter_agrees_with_wiki": false
+    },
+    {
+      "timi_circumference_mm": 57,
+      "timi_diameter_mm": 18.0,
+      "timi_us_as_printed": 8.0,
+      "timi_uk_as_printed": "P½",
+      "timi_eu": 57,
+      "wiki_for_same_us_size": {
+        "diameter_mm": 18.14,
+        "circumference_mm": 57.0,
+        "uk_au_letter": "P½"
+      },
+      "diff_diameter_mm_timi_minus_wiki": -0.14,
+      "abs_diff_gt_0_1_mm": true,
+      "uk_letter_agrees_with_wiki": true
+    },
+    {
+      "timi_circumference_mm": 60,
+      "timi_diameter_mm": 19.0,
+      "timi_us_as_printed": 9.0,
+      "timi_uk_as_printed": "R½",
+      "timi_eu": 60,
+      "wiki_for_same_us_size": {
+        "diameter_mm": 18.95,
+        "circumference_mm": 59.5,
+        "uk_au_letter": "R½"
+      },
+      "diff_diameter_mm_timi_minus_wiki": 0.05,
+      "abs_diff_gt_0_1_mm": false,
+      "uk_letter_agrees_with_wiki": true
+    },
+    {
+      "timi_circumference_mm": 63,
+      "timi_diameter_mm": 20.0,
+      "timi_us_as_printed": 10.5,
+      "timi_uk_as_printed": "T½",
+      "timi_eu": 63,
+      "wiki_for_same_us_size": {
+        "diameter_mm": 20.17,
+        "circumference_mm": 63.4,
+        "uk_au_letter": "U½"
+      },
+      "diff_diameter_mm_timi_minus_wiki": -0.17,
+      "abs_diff_gt_0_1_mm": true,
+      "uk_letter_agrees_with_wiki": false
+    },
+    {
+      "timi_circumference_mm": 66,
+      "timi_diameter_mm": 21.0,
+      "timi_us_as_printed": 11.5,
+      "timi_uk_as_printed": "V½",
+      "timi_eu": 66,
+      "wiki_for_same_us_size": {
+        "diameter_mm": 20.98,
+        "circumference_mm": 65.9,
+        "uk_au_letter": "W½"
+      },
+      "diff_diameter_mm_timi_minus_wiki": 0.02,
+      "abs_diff_gt_0_1_mm": false,
+      "uk_letter_agrees_with_wiki": false
+    }
+  ],
+  "disagreements_gt_0_1_mm": [
+    "US 4.0: UK letter wiki H vs aquamarise H½",
+    "US 4.5: UK letter wiki I vs aquamarise I½",
+    "US 8.5: UK letter wiki Q¼ vs aquamarise Q½",
+    "US 12.0: UK letter wiki X½ vs aquamarise Y",
+    "US 12.5: UK letter wiki Y½ vs aquamarise Z",
+    "US 13.0: UK letter wiki Z½ vs aquamarise Z+1",
+    "Timi US 7.5: diameter 17.5 vs wiki 17.73 (diff -0.23 mm)",
+    "Timi US 8.0: diameter 18.0 vs wiki 18.14 (diff -0.14 mm)",
+    "Timi US 10.5: diameter 20.0 vs wiki 20.17 (diff -0.17 mm)"
+  ],
+  "aquamarise_vs_wiki_max_abs_diameter_gap_mm": 0.05,
+  "uncertain": [
+    "UK letters beyond US 4 disagree between sources in several rows (see rows[].aquamarise.letter_agrees_with_wiki). Wikipedia is used as the primary letter column.",
+    "Timi's US, UK and diameter columns are rounded to 0.5 mm and differ from the circumference-derived value by up to about 0.15 mm.",
+    "Half-size UK letters (for example H1/2 vs H) differ by convention; no source was found that resolves the convention."
+  ]
+}
