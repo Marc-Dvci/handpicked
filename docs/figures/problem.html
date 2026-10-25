@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Problem figure</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&family=Newsreader:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #fff; }
+  svg { display: block; }
+  .ax { font: 400 26px "IBM Plex Mono", monospace; fill: #6b707b; }
+  .val { font: 500 30px "IBM Plex Mono", monospace; fill: #15171c; }
+  .lab { font: 400 34px "IBM Plex Sans", sans-serif; fill: #474c57; }
+  .big { font: 500 64px "Newsreader", serif; fill: #15171c; }
+  .note { font: 500 34px "IBM Plex Mono", monospace; fill: #1d46c4; }
+</style>
+</head>
+<body>
+<!-- Data: PriceScope natural round, colour G clarity VS2, average price per carat, October 2026
+     (eval/prices/pricescope_cells_2026-10.csv). Stones: the sample shortlist (0.93 ct, 6.24 mm, $2,841;
+     1.01 ct, 6.36 mm, $4,413) on hand 1's measured finger, 16.70 mm. -->
+<svg width="2400" height="1600" viewBox="0 0 2400 1600">
+  <rect width="2400" height="1600" fill="#fff"/>
+  <!-- left: price per carat by band -->
+  <g transform="translate(150,220)">
+    <text class="lab" x="0" y="0">Price per carat, natural round, G VS2</text>
+    <line x1="0" y1="1100" x2="1000" y2="1100" stroke="#15171c" stroke-width="2"/>
+    <!-- scale: 5000 $/ct = 900 px -->
+    <g>
+      <rect x="40" y="722" width="150" height="378" fill="#d9dce2"/>
+      <text class="val" x="115" y="700" text-anchor="middle">$2,100</text>
+      <text class="ax" x="115" y="1145" text-anchor="middle">0.50-0.69</text>
+      <rect x="230" y="605" width="150" height="495" fill="#d9dce2"/>
+      <text class="val" x="305" y="583" text-anchor="middle">$2,752</text>
+      <text class="ax" x="305" y="1145" text-anchor="middle">0.70-0.89</text>
+      <rect x="420" y="550" width="150" height="550" fill="#15171c"/>
+      <text class="val" x="495" y="528" text-anchor="middle">$3,055</text>
+      <text class="ax" x="495" y="1145" text-anchor="middle">0.90-0.99</text>
+      <rect x="610" y="314" width="150" height="786" fill="#1d46c4"/>
+      <text class="val" x="685" y="292" text-anchor="middle">$4,369</text>
+      <text class="ax" x="685" y="1145" text-anchor="middle">1.00-1.19</text>
+      <rect x="800" y="167" width="150" height="933" fill="#d9dce2"/>
+      <text class="val" x="875" y="145" text-anchor="middle">$5,185</text>
+      <text class="ax" x="875" y="1145" text-anchor="middle">1.20-1.49</text>
+    </g>
+    <text class="ax" x="500" y="1205" text-anchor="middle">carat band</text>
+    <text class="note" x="685" y="236" text-anchor="middle">+43%</text>
+  </g>
+
+  <!-- right: the two rounds to scale on the finger -->
+  <g transform="translate(1350,220)">
+    <text class="lab" x="0" y="0">On a finger 16.70 mm wide, to scale</text>
+    <!-- 1 mm = 26 px; finger 16.70 mm = 434 px -->
+    <g transform="translate(0,90)">
+      <rect x="0" y="0" width="434" height="760" fill="#f3f4f6"/>
+      <line x1="0" y1="0" x2="0" y2="760" stroke="#15171c" stroke-width="2"/>
+      <line x1="434" y1="0" x2="434" y2="760" stroke="#15171c" stroke-width="2"/>
+      <circle cx="217" cy="380" r="81.1" fill="#fff" stroke="#15171c" stroke-width="3"/>
+      <text class="big" x="217" y="860" text-anchor="middle">0.93 ct</text>
+      <text class="val" x="217" y="915" text-anchor="middle">6.24 mm</text>
+      <text class="big" x="217" y="1010" text-anchor="middle">$2,841</text>
+    </g>
+    <g transform="translate(520,90)">
+      <rect x="0" y="0" width="434" height="760" fill="#f3f4f6"/>
+      <line x1="0" y1="0" x2="0" y2="760" stroke="#15171c" stroke-width="2"/>
+      <line x1="434" y1="0" x2="434" y2="760" stroke="#15171c" stroke-width="2"/>
+      <circle cx="217" cy="380" r="82.7" fill="#fff" stroke="#1d46c4" stroke-width="3"/>
+      <text class="big" x="217" y="860" text-anchor="middle">1.01 ct</text>
+      <text class="val" x="217" y="915" text-anchor="middle">6.36 mm</text>
+      <text class="big" x="217" y="1010" text-anchor="middle" style="fill:#1d46c4">$4,413</text>
+    </g>
+    <text class="note" x="477" y="1215" text-anchor="middle">0.12 mm apart · $1,572 apart</text>
+  </g>
+</svg>
+</body>
+</html>

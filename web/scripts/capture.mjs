@@ -3,6 +3,8 @@
 // Drives the same sample path a visitor takes; element shots are cut from the live page, never redrawn.
 import { chromium } from "@playwright/test";
 import fs from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 const out = process.argv[2] ?? "capture";
 const base = process.argv[3] ?? "http://localhost:8000";
@@ -69,6 +71,20 @@ await phone.goto(base + "/");
 await phone.waitForSelector(".hero-tile img");
 await phone.waitForTimeout(600);
 await phone.screenshot({ path: `${out}/phone.png` });
+
+// figures drawn from the repository's data, rendered at gallery size
+const fig = await browser.newPage({ viewport: { width: 2400, height: 1600 }, deviceScaleFactor: 1 });
+await fig.goto(pathToFileURL(path.resolve("../docs/figures/problem.html")).href);
+await fig.evaluate(() => document.fonts.ready);
+await fig.waitForTimeout(800);
+await fig.screenshot({ path: `${out}/problem.png` });
+const svg = fs.readFileSync(path.resolve("../docs/img/architecture.svg"), "utf8");
+await fig.setContent(`<html><head><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;500&family=Newsreader:wght@500&display=swap" rel="stylesheet">
+  <style>html,body{margin:0;background:#fff;width:2400px;height:1600px;display:grid;place-items:center} svg{width:2250px;height:1500px}</style></head>
+  <body>${svg}</body></html>`);
+await fig.evaluate(() => document.fonts.ready);
+await fig.waitForTimeout(800);
+await fig.screenshot({ path: `${out}/architecture.png` });
 
 await browser.close();
 console.log("captured to", out);
