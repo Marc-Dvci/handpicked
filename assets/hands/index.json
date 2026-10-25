@@ -1,0 +1,86 @@
+[
+ {
+  "id": "hand-1",
+  "file": "hand-1.jpg",
+  "generated": {
+   "script": "tools/gen_hands.py",
+   "row": "h09",
+   "seed": 1263231163,
+   "model": "qwen2.1-realism_Base_fp8.safetensors",
+   "lora": "Qwen-Image-2.1-viggle-turbo-v0.3-6step-lora-r128.safetensors",
+   "prompt": "Top-down smartphone photo, camera held straight above. A Latina woman's left hand, back of the hand facing up, lies flat on a plain white A4 sheet of printer paper in portrait orientation. The sheet lies on a medium brown wooden table. The whole sheet is in the frame with all four corners visible and a margin of table around it. The fingers point to the top of the sheet, straight and spread wide apart like a fan, with a clear gap of white paper between every two fingers all the way down to the knuckles. The thumb is relaxed, angled out to the side and lower than the four fingers, as on a normal hand. All five fingers are fully visible and flat on the paper. The hand is small compared with the sheet, as a real hand is on A4 paper: the palm covers only the middle third of the sheet's width with wide white margins on both sides, and the fingertips stop well below the top edge of the sheet. The wrist crosses the bottom edge of the sheet. Short nails with nude polish. No rings, no jewellery, no watch. Soft daylight, faint shadow to the right. Realistic photo, sharp focus, natural skin texture, true colours."
+  }
+ },
+ {
+  "id": "hand-2",
+  "file": "hand-2.jpg",
+  "generated": {
+   "script": "tools/gen_hands.py",
+   "row": "h12",
+   "seed": 1445854876,
+   "model": "qwen2.1-realism_Base_fp8.safetensors",
+   "lora": "Qwen-Image-2.1-viggle-turbo-v0.3-6step-lora-r128.safetensors",
+   "prompt": "Top-down smartphone photo, camera held straight above. A Middle Eastern woman's left hand, back of the hand facing up, lies flat on a plain white A4 sheet of printer paper in portrait orientation. The sheet lies on a walnut wooden desk. The whole sheet is in the frame with all four corners visible and a margin of table around it. The fingers point to the top of the sheet, straight and spread wide apart like a fan, with a clear gap of white paper between every two fingers all the way down to the knuckles. The thumb is relaxed, angled out to the side and lower than the four fingers, as on a normal hand. All five fingers are fully visible and flat on the paper. The hand is small compared with the sheet, as a real hand is on A4 paper: the palm covers only the middle third of the sheet's width with wide white margins on both sides, and the fingertips stop well below the top edge of the sheet. The wrist crosses the bottom edge of the sheet. Short nails, no polish. No rings, no jewellery, no watch. Even indoor daylight. Realistic photo, sharp focus, natural skin texture, true colours."
+  }
+ },
+ {
+  "id": "hand-3",
+  "file": "hand-3.jpg",
+  "generated": {
+   "script": "tools/gen_hands.py",
+   "row": "h04",
+   "seed": 958511206,
+   "model": "qwen2.1-realism_Base_fp8.safetensors",
+   "lora": "Qwen-Image-2.1-viggle-turbo-v0.3-6step-lora-r128.safetensors",
+   "prompt": "Top-down smartphone photo, camera held straight above. A Black woman's left hand, back of the hand facing up, lies flat on a plain white A4 sheet of printer paper in portrait orientation. The sheet lies on a light oak wooden table. The whole sheet is in the frame with all four corners visible and a margin of table around it. The fingers point to the top of the sheet, straight and spread wide apart like a fan, with a clear gap of white paper between every two fingers all the way down to the knuckles. The thumb is relaxed, angled out to the side and lower than the four fingers, as on a normal hand. All five fingers are fully visible and flat on the paper. The hand is small compared with the sheet, as a real hand is on A4 paper: the palm covers only the middle third of the sheet's width with wide white margins on both sides, and the fingertips stop well below the top edge of the sheet. The wrist crosses the bottom edge of the sheet. Short natural nails, no polish. No rings, no jewellery, no watch. Soft even daylight from a window. Realistic photo, sharp focus, natural skin texture, true colours."
+  }
+ },
+ {
+  "id": "hand-4",
+  "file": "hand-4.jpg",
+  "generated": {
+   "script": "tools/gen_hands.py",
+   "row": "h10",
+   "seed": 304764731,
+   "model": "qwen2.1-realism_Base_fp8.safetensors",
+   "lora": "Qwen-Image-2.1-viggle-turbo-v0.3-6step-lora-r128.safetensors",
+   "prompt": "Top-down smartphone photo, camera held straight above. A Black man's left hand, back of the hand facing up, lies flat on a plain white A4 sheet of printer paper in portrait orientation. The sheet lies on a pale grey laminate table. The whole sheet is in the frame with all four corners visible and a margin of table around it. The fingers point to the top of the sheet, straight and spread wide apart like a fan. Every finger is separated from the next by a clear V-shaped gap of white paper all the way down to the knuckles, including between the middle finger and the ring finger. The thumb is relaxed, angled out to the side and lower than the four fingers, as on a normal hand. All five fingers are fully visible and flat on the paper. The hand is small compared with the sheet, as a real hand is on A4 paper: the palm covers only the middle third of the sheet's width with wide white margins on both sides, and the fingertips stop well below the top edge of the sheet. The wrist crosses the bottom edge of the sheet. Short clean nails. No rings, no jewellery, no watch. Soft overcast daylight. Realistic photo, sharp focus, natural skin texture, true colours."
+  }
+ },
+ {
+  "id": "hand-5",
+  "file": "hand-5.jpg",
+  "generated": {
+   "script": "tools/gen_hands.py",
+   "row": "h08",
+   "seed": 1795053156,
+   "model": "qwen2.1-realism_Base_fp8.safetensors",
+   "lora": "Qwen-Image-2.1-viggle-turbo-v0.3-6step-lora-r128.safetensors",
+   "prompt": "Top-down smartphone photo, camera held straight above. A young man's right hand, back of the hand facing up, lies flat on a plain white A4 sheet of printer paper in portrait orientation. The sheet lies on a concrete-grey desk. The whole sheet is in the frame with all four corners visible and a margin of table around it. The fingers point to the top of the sheet, straight and spread wide apart like a fan. Every finger is separated from the next by a clear V-shaped gap of white paper all the way down to the knuckles, including between the middle finger and the ring finger. The thumb is relaxed, angled out to the side and lower than the four fingers, as on a normal hand. All five fingers are fully visible and flat on the paper. The hand is small compared with the sheet, as a real hand is on A4 paper: the palm covers only the middle third of the sheet's width with wide white margins on both sides, and the fingertips stop well below the top edge of the sheet. The wrist crosses the bottom edge of the sheet. Short clean nails. No rings, no jewellery, no watch. Even indoor daylight. Realistic photo, sharp focus, natural skin texture, true colours."
+  }
+ },
+ {
+  "id": "hand-6",
+  "file": "hand-6.jpg",
+  "generated": {
+   "script": "tools/gen_hands.py",
+   "row": "h03",
+   "seed": 1040175461,
+   "model": "qwen2.1-realism_Base_fp8.safetensors",
+   "lora": "Qwen-Image-2.1-viggle-turbo-v0.3-6step-lora-r128.safetensors",
+   "prompt": "Top-down smartphone photo, camera held straight above. A man's broad left hand, back of the hand facing up, lies flat on a plain white A4 sheet of printer paper in portrait orientation. The sheet lies on a pale grey laminate table. The whole sheet is in the frame with all four corners visible and a margin of table around it. The fingers point to the top of the sheet, straight and spread wide apart like a fan. Every finger is separated from the next by a clear V-shaped gap of white paper all the way down to the knuckles, including between the middle finger and the ring finger. The thumb is relaxed, angled out to the side and lower than the four fingers, as on a normal hand. All five fingers are fully visible and flat on the paper. The hand is small compared with the sheet, as a real hand is on A4 paper: the palm covers only the middle third of the sheet's width with wide white margins on both sides, and the fingertips stop well below the top edge of the sheet. The wrist crosses the bottom edge of the sheet. Short clean nails. No rings, no jewellery, no watch. Soft overcast daylight. Realistic photo, sharp focus, natural skin texture, true colours."
+  }
+ },
+ {
+  "id": "hand-7",
+  "file": "hand-7.jpg",
+  "generated": {
+   "script": "tools/gen_hands.py",
+   "row": "h06",
+   "seed": 169943383,
+   "model": "qwen2.1-realism_Base_fp8.safetensors",
+   "lora": "Qwen-Image-2.1-viggle-turbo-v0.3-6step-lora-r128.safetensors",
+   "prompt": "Top-down smartphone photo, camera held straight above. A South Asian man's left hand, back of the hand facing up, lies flat on a plain white A4 sheet of printer paper in portrait orientation. The sheet lies on a dark wooden kitchen table. The whole sheet is in the frame with all four corners visible and a margin of table around it. The fingers point to the top of the sheet, straight and spread wide apart like a fan. Every finger is separated from the next by a clear V-shaped gap of white paper all the way down to the knuckles, including between the middle finger and the ring finger. The thumb is relaxed, angled out to the side and lower than the four fingers, as on a normal hand. All five fingers are fully visible and flat on the paper. The hand is small compared with the sheet, as a real hand is on A4 paper: the palm covers only the middle third of the sheet's width with wide white margins on both sides, and the fingertips stop well below the top edge of the sheet. The wrist crosses the bottom edge of the sheet. Short clean nails. No rings, no jewellery, no watch. Warm late afternoon daylight, soft shadow. Realistic photo, sharp focus, natural skin texture, true colours."
+  }
+ }
+]
