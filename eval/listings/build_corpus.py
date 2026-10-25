@@ -99,7 +99,7 @@ ROWS += [
         Clarity ...... VVS2
         Comments ...... This is a man-made diamond.
         Inscription(s) ...... 3307719402, LABORATORY-GROWN
-        """, carat=1.10, shape="round", mm=M(6.78, 6.74, 3.95), lab="GIA", origin="lab",
+        """, carat=1.10, shape="round", mm=M(6.78, 6.74, 3.95), lab=None, origin="lab",
       colour="E", clarity="VVS2", traps=["round_range_mm", "dot_leader"]),
     R("gia_report", """
         GIA Grading Report
@@ -203,7 +203,7 @@ ROWS += [
         Clarity ...... VS1
         Comments ...... This is a man-made diamond.
         Inscription(s) ...... 9028466105, LABORATORY-GROWN
-        """, carat=2.97, shape="round", mm=M(9.26, 9.22, 5.70), lab="GIA", origin="lab",
+        """, carat=2.97, shape="round", mm=M(9.26, 9.22, 5.70), lab=None, origin="lab",
       colour="F", clarity="VS1", traps=["round_range_mm", "dot_leader"]),
 ]
 
