@@ -16,8 +16,8 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements-dev.txt
-      - name: System libraries for OpenCV
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0
+      - name: System libraries for OpenCV and MediaPipe (EGL/GLES, as in the Dockerfile)
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libegl1 libgles2
       - run: pip install -r requirements-dev.txt
       - name: Lint
         run: ruff check handpicked tests eval tools
